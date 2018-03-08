@@ -28,9 +28,9 @@ namespace DocumentsKeeperDemo.Web.Api.V1.ViewModels
 		public int DocumentNumber { get; set; }
 
 		/// <summary>
-		/// The document's MIME type.
+		/// The document's file type.
 		/// </summary>
-		public MimeType MimeType { get; set; }
+		public string FileType { get; set; }
 
 		/// <summary>
 		/// The folder.

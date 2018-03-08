@@ -22,9 +22,9 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		public virtual int DocumentNumber { get; set; }
 
 		/// <summary>
-		/// The document MIME type.
+		/// The document file type.
 		/// </summary>
-		public virtual string MimeType { get; set; }
+		public virtual string FileType { get; set; }
 
 		/// <summary>
 		/// The created date.

@@ -44,8 +44,8 @@
     <Compile Include="Attributes\TextAttribute.cs" />
     <Compile Include="Enums\FieldDataType.cs" />
     <Compile Include="Enums\FileType.cs" />
-    <Compile Include="Enums\MimeType.cs" />
     <Compile Include="Enums\ResourceStatus.cs" />
+    <Compile Include="Infrastructure\EnumExtension.cs" />
     <Compile Include="Infrastructure\GuidExtension.cs" />
     <Compile Include="Infrastructure\TextAttributeExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

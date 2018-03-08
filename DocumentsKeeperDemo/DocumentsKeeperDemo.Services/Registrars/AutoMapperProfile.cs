@@ -3,6 +3,7 @@ using AutoMapper;
 using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using DocumentsKeeperDemo.Services.Models;
+using DocumentsKeeperDemo.Core.Infrastructure;
 
 namespace DocumentsKeeperDemo.Services.Registrars
 {
@@ -18,7 +19,7 @@ namespace DocumentsKeeperDemo.Services.Registrars
 		{
 			this.CreateMap<DocumentEntity, DocumentModel>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
-				.ForMember(dest => dest.MimeType, opt => opt.MapFrom(x => Enum.Parse(typeof(MimeType), x.MimeType)));
+				.ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.FromTextAttributeStringToEnumValue<FileType>()));
 
 			this.CreateMap<FieldEntity, FieldModel>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))

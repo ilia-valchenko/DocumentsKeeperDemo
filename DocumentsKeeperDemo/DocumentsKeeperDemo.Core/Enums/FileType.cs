@@ -8,31 +8,36 @@ namespace DocumentsKeeperDemo.Core.Enums
     public enum FileType
     {
         /// <summary>
+        /// The none value. 
+        /// </summary>
+        NONE = 0,
+
+        /// <summary>
         /// The plain text.
         /// </summary>
         [Text("text/plain")]
-        TXT,
+        TXT = 1,
 
         /// <summary>
         /// The application msword.
         /// </summary>
         [Text("application/msword")]
-        DOC,
+        DOC = 2,
 
 		/// <summary>
 		/// The Microsoft Office Open XML format.
 		/// </summary>
 		[Text("application/vnd.openxmlformats-officedocument.wordprocessingml.document")]
-        DOCX,
+        DOCX = 3,
 
 		/// <summary>
 		/// The Portable Document Format.
 		/// </summary>
 		[Text("application/pdf")]
-        PDF,
+        PDF = 4,
 
-        ODT,
-        RTF,
-        TEX
+        ODT = 5,
+        RTF = 6,
+        TEX = 7
     }
 }

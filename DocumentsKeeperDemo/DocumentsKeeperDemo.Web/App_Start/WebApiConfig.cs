@@ -11,7 +11,7 @@ namespace DocumentsKeeperDemo.Web
 		/// <summary>
 		/// Registers routes.
 		/// </summary>
-		/// <param name="config"></param>
+		/// <param name="config">The http configuration.</param>
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
@@ -29,7 +29,7 @@ namespace DocumentsKeeperDemo.Web
 	        GlobalConfiguration.Configuration.Routes.MapHttpRoute(
 		        name: "DocumentRoute",
 		        routeTemplate: "api/{version}/{controller}/{documentId}",
-		        defaults: new { controller = "Document", version = "v1", documentId = RouteParameter.Optional });
+		        defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
 
 			config.Routes.MapHttpRoute(
                 name: "DefaultApi",

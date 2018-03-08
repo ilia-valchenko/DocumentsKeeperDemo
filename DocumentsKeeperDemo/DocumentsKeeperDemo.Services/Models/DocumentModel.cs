@@ -28,9 +28,9 @@ namespace DocumentsKeeperDemo.Services.Models
 		public int DocumentNumber { get; set; }
 
 		/// <summary>
-		/// The MIME type.
+		/// The file type.
 		/// </summary>
-		public MimeType MimeType { get; set; }
+		public FileType FileType { get; set; }
 
 		/// <summary>
 		/// The created date.

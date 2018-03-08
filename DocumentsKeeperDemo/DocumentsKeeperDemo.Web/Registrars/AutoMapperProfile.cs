@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DocumentsKeeperDemo.Core.Infrastructure;
 using DocumentsKeeperDemo.Services.Models;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
 
@@ -14,7 +15,9 @@ namespace DocumentsKeeperDemo.Web.Registrars
 		/// </summary>
 		public AutoMapperProfile()
 		{
-			this.CreateMap<DocumentModel, DocumentViewModel>();
+            this.CreateMap<DocumentModel, DocumentViewModel>()
+                .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.ToStringValue()));
+
 			this.CreateMap<FieldModel, FieldViewModel>();
 			this.CreateMap<FieldViewModel, FieldValueViewModel>();
 			this.CreateMap<FolderModel, FolderViewModel>();
