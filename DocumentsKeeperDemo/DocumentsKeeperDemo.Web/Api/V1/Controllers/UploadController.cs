@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using DocumentsKeeperDemo.Core.Enums;
-using DocumentsKeeperDemo.Core.Infrastructure;
+using DocumentsKeeperDemo.Core.Extensions;
 using DocumentsKeeperDemo.Services.Interfaces;
+using DocumentsKeeperDemo.Services.Models;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
@@ -65,6 +65,9 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 			if (fileType == FileType.TXT.ToStringValue())
 			{
 				// TODO: Parse as .txt file.
+
+				var fileModel = AutoMapper.Mapper.Map<FileResultModel>(fileResult);
+				//this.documentService.
 			}
 
 			if (fileType == FileType.DOC.ToStringValue())

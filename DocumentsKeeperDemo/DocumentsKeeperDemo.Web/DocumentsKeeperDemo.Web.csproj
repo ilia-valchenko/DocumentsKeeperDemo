@@ -187,6 +187,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Logs\" />
     <Folder Include="App_Data\UploadedFiles\" />
   </ItemGroup>
   <ItemGroup>

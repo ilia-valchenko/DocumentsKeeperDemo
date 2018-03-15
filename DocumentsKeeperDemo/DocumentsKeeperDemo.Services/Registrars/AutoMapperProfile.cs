@@ -3,7 +3,7 @@ using AutoMapper;
 using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using DocumentsKeeperDemo.Services.Models;
-using DocumentsKeeperDemo.Core.Infrastructure;
+using DocumentsKeeperDemo.Core.Extensions;
 
 namespace DocumentsKeeperDemo.Services.Registrars
 {

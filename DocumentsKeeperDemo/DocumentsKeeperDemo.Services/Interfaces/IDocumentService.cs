@@ -15,7 +15,7 @@ namespace DocumentsKeeperDemo.Services.Interfaces
 		/// <returns></returns>
 		List<DocumentModel> GetAllDocumentModels();
 
-			/// <summary>
+		/// <summary>
 		/// Gets the document by id.
 		/// </summary>
 		/// <param name="documentId">The document's id.</param>
@@ -23,5 +23,14 @@ namespace DocumentsKeeperDemo.Services.Interfaces
 		/// The document model.
 		/// </returns>
 		DocumentModel GetDocumentModelById(Guid documentId);
+
+		/// <summary>
+		/// Creates new document model.
+		/// </summary>
+		/// <param name="fileResultModel">The file result model.</param>
+		/// <returns>
+		/// The guid of the created document model.
+		/// </returns>
+		Guid CreateDocumentModel(FileResultModel fileResultModel);
 	}
 }

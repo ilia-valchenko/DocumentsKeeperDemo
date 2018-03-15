@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DocumentsKeeperDemo.Core.Enums;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.ViewModels
 {

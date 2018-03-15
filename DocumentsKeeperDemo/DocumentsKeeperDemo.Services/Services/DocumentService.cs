@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using DocumentsKeeperDemo.Core.Extensions;
 using DocumentsKeeperDemo.Core.Infrastructure;
 using DocumentsKeeperDemo.Repositories.Interfaces.Repositories;
 using DocumentsKeeperDemo.Services.Interfaces;
@@ -56,6 +57,25 @@ namespace DocumentsKeeperDemo.Services.Services
 			var documentModel = Mapper.Map<DocumentModel>(documentEntity);
 
 			return documentModel;
+		}
+
+		/// <summary>
+		/// Creates new document model.
+		/// </summary>
+		/// <param name="fileResultModel">The file result model.</param>
+		/// <returns>
+		/// The guid of the created document model.
+		/// </returns>
+		public Guid CreateDocumentModel(FileResultModel fileResultModel)
+		{
+			if (fileResultModel == null)
+			{
+				var exception = new ArgumentNullException(nameof(fileResultModel));
+				ApplicationLogger.LogError("The file result model is null.", exception);
+				throw exception;
+			}
+
+			throw new NotImplementedException();
 		}
 	}
 }

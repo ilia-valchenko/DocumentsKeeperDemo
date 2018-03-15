@@ -83,6 +83,7 @@
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\FieldModel.cs" />
     <Compile Include="Models\FieldValueModel.cs" />
+    <Compile Include="Models\FileResultModel.cs" />
     <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registrars\AutoMapperProfile.cs" />
