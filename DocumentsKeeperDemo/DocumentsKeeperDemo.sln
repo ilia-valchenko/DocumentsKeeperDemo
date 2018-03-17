@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsKeeperDemo.Service
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsKeeperDemo.Web.UnitTests", "DocumentsKeeperDemo.Web.UnitTests\DocumentsKeeperDemo.Web.UnitTests.csproj", "{BE1B1A1B-CD32-4BF9-B50A-18DBDC20675D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsKeeperDemo.Services.UnitTests", "DocumentsKeeperDemo.Services.UnitTests\DocumentsKeeperDemo.Services.UnitTests.csproj", "{B810BE63-0DDD-41E5-91B1-9BC063135386}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,11 +49,16 @@ Global
 		{BE1B1A1B-CD32-4BF9-B50A-18DBDC20675D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE1B1A1B-CD32-4BF9-B50A-18DBDC20675D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE1B1A1B-CD32-4BF9-B50A-18DBDC20675D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B810BE63-0DDD-41E5-91B1-9BC063135386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B810BE63-0DDD-41E5-91B1-9BC063135386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B810BE63-0DDD-41E5-91B1-9BC063135386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B810BE63-0DDD-41E5-91B1-9BC063135386}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BE1B1A1B-CD32-4BF9-B50A-18DBDC20675D} = {938DCD09-796E-49E3-BD7A-1183AF2B3248}
+		{B810BE63-0DDD-41E5-91B1-9BC063135386} = {938DCD09-796E-49E3-BD7A-1183AF2B3248}
 	EndGlobalSection
 EndGlobal

@@ -17,8 +17,9 @@ namespace DocumentsKeeperDemo.Core.Infrastructure
 		/// </summary>
 		static ApplicationLogger()
 		{
-			ApplicationLogger.log4netLogger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-		}
+            log4net.Config.XmlConfigurator.Configure();
+            ApplicationLogger.log4netLogger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        }
 
 		/// <summary>
 		/// Writes info log message.
