@@ -19,7 +19,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DocumentsController"/> class.
 		/// </summary>
-		/// <param name="documentService">The </param>
+		/// <param name="documentService">The document service.</param>
 		public DocumentsController(IDocumentService documentService)
 		{
 			this.documentService = documentService;

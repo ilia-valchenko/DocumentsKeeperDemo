@@ -21,8 +21,7 @@ namespace DocumentsKeeperDemo.Repositories.Infrastructure
 			// TODO: Put the connection string into config file.
 			//.Database(MsSqlConfiguration.MsSql2012.ConnectionString(c => c.FromConnectionStringWithKey("connectionString")).ShowSql())
 
-
-			.Database(MsSqlConfiguration.MsSql2012.ConnectionString(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\git\DocKeeper\DocumentsKeeperDemo\DocumentsKeeperDemo.Web\App_Data\DocumentsKeeperDemoDatabase.mdf;Integrated Security=True").ShowSql())
+			.Database(MsSqlConfiguration.MsSql2012.ConnectionString(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\git\DocumentsKeeper\DocumentsKeeperDemo\DocumentsKeeperDemo.Web\App_Data\DocumentsKeeperDemoDatabase.mdf;Integrated Security=True").ShowSql())
 			.Mappings(m => m.FluentMappings.AddFromAssemblyOf<DocumentEntityMap>())
 			.BuildSessionFactory();
 	}

@@ -54,6 +54,7 @@
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\TextAttributeExtension.cs" />
     <Compile Include="Infrastructure\ApplicationLogger.cs" />
+    <Compile Include="Infrastructure\Guard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -48,10 +48,7 @@ namespace DocumentsKeeperDemo.Services.Services
 		/// </returns>
 		public DocumentModel GetDocumentModelById(Guid documentId)
 		{
-			if (documentId == Guid.Empty)
-			{
-				throw new ArgumentException("The document id is empty guid.");
-			}
+            Guard.NotEmptyGuid(documentId, nameof(documentId));
 
 			var documentEntity = this.documentRepository.GetDocumentEntity(d => d.Id == documentId.ToNonDashedString());
 			var documentModel = Mapper.Map<DocumentModel>(documentEntity);
@@ -68,12 +65,7 @@ namespace DocumentsKeeperDemo.Services.Services
 		/// </returns>
 		public Guid CreateDocumentModel(FileResultModel fileResultModel)
 		{
-			if (fileResultModel == null)
-			{
-				var exception = new ArgumentNullException(nameof(fileResultModel));
-				ApplicationLogger.LogError("The file result model is null.", exception);
-				throw exception;
-			}
+            Guard.ArgumentNotNull(fileResultModel, nameof(fileResultModel));
 
 			throw new NotImplementedException();
 		}

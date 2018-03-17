@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using DocumentsKeeperDemo.Web.Filters;
+using System.Web.Http;
 using Unity;
 
 namespace DocumentsKeeperDemo.Web
@@ -15,6 +16,9 @@ namespace DocumentsKeeperDemo.Web
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
+
+            // Filters
+            config.Filters.Add(new ApplicationExceptionFilterAttribute());
 
             // Web API routes
             config.MapHttpAttributeRoutes();

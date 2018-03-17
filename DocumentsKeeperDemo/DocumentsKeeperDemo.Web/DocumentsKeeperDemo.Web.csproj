@@ -167,6 +167,7 @@
     <Compile Include="Api\V1\ViewModels\FolderViewModel.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Filters\ApplicationExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

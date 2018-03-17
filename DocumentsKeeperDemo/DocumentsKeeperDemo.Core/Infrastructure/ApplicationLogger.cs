@@ -47,6 +47,15 @@ namespace DocumentsKeeperDemo.Core.Infrastructure
 			log4netLogger.Error(errorMessage);
 		}
 
+        /// <summary>
+        /// Writes an exception to a log file.
+        /// </summary>
+        /// <param name="exception">The exception.</param>
+        public static void LogError(Exception exception)
+        {
+            log4netLogger.Error(exception);
+        }
+
 		/// <summary>
 		/// Writes error log message with exception info.
 		/// </summary>
