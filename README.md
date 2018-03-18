@@ -1,3 +1,4 @@
 # DocumentsKeeperDemo
 
-Don't forget replace connection string before starting the application. 
+Microsoft Azure SQL database
+documentskeeperdemodatabaseserver.database.windows.net
