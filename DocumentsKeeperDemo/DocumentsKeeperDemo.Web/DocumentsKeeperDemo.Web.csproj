@@ -152,10 +152,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\DocumentsKeeperDemoDatabase.mdf" />
-    <Content Include="App_Data\DocumentsKeeperDemoDatabase_log.ldf">
-      <DependentUpon>DocumentsKeeperDemoDatabase.mdf</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="Web.config" />
