@@ -23,6 +23,7 @@ namespace DocumentsKeeperDemo.Repositories
 			container.RegisterType<ISessionFactory>(new InjectionFactory(c => c.Resolve<IFactorySessionFactory>().CreateSessionFactory()));
 
 			container.RegisterType<IDocumentRepository, DocumentRepository>(new HierarchicalLifetimeManager());
+		    container.RegisterType<IFolderRepository, FolderRepository>(new HierarchicalLifetimeManager());
 		}
 	}
 }

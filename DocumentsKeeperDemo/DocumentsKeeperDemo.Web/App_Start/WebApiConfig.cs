@@ -30,12 +30,22 @@ namespace DocumentsKeeperDemo.Web
 	        Bootstrapper.RegisterDependencies(container);
 			Bootstrapper.RegisterMappings();
 
-	        GlobalConfiguration.Configuration.Routes.MapHttpRoute(
-		        name: "DocumentRoute",
-		        routeTemplate: "api/{version}/{controller}/{documentId}",
-		        defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
+            config.Routes.MapHttpRoute(
+                name: "DocumentRouteWithAction",
+                routeTemplate: "api/{version}/{controller}/{action}/{documentId}",
+                defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
 
-			config.Routes.MapHttpRoute(
+            config.Routes.MapHttpRoute(
+                name: "FolderRouteWithAction",
+                routeTemplate: "api/{version}/{controller}/{action}/{folderId}",
+                defaults: new { controller = "Folders", version = "v1", folderId = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+                name: "DocumentRoute",
+                routeTemplate: "api/{version}/{controller}/{documentId}",
+                defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }

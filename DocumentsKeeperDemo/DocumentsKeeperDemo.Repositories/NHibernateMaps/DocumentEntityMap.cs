@@ -25,14 +25,10 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 			this.Map(x => x.FamilyId).Column("FAMILY_ID");
 			this.Map(x => x.UploadId).Column("UPLOAD_ID");
 
-			//this.HasMany(x => x.FieldValues)
-			//	.Table("FIELD_VALUES")
-			//	.KeyColumn("DOCUMENT_GUID");
-
-//			this.References(x => x.Folder)
-//				.ForeignKey("FOLDER_GUID");
-
-            // Fileds 
+		    this.HasMany(x => x.FieldValues)
+		        .Table("FIELD_VALUES")
+		        .KeyColumn("DOCUMENT_GUID")
+		        .Not.LazyLoad();
 		}
 	}
 }

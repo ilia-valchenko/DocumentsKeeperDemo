@@ -44,7 +44,7 @@ namespace DocumentsKeeperDemo.Services.UnitTests
             };
 
             // Act
-            var documentModel = this.documentService.GetDocumentModelById(documentId);
+            var documentModel = this.documentService.GetDocument(documentId);
 
             // Assert
             Assert.AreEqual(documentModel.Id, documentId);

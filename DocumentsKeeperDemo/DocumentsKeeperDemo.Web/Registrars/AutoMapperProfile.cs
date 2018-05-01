@@ -15,13 +15,16 @@ namespace DocumentsKeeperDemo.Web.Registrars
 		/// </summary>
 		public AutoMapperProfile()
 		{
+            // Document 
             this.CreateMap<DocumentModel, DocumentViewModel>()
                 .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.ToStringValue()));
 
-			this.CreateMap<FieldModel, FieldViewModel>();
+            // Field 
+            this.CreateMap<FieldModel, FieldViewModel>();
 			this.CreateMap<FieldViewModel, FieldValueViewModel>();
+
+            // Folder
 			this.CreateMap<FolderModel, FolderViewModel>();
-			this.CreateMap<FileResultViewModel, FileResultModel>();
 		}
 	}
 }

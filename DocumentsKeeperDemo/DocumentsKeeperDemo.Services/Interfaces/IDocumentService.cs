@@ -13,24 +13,41 @@ namespace DocumentsKeeperDemo.Services.Interfaces
 		/// Gets all document models.
 		/// </summary>
 		/// <returns></returns>
-		List<DocumentModel> GetAllDocumentModels();
+		List<DocumentModel> GetAllDocuments();
 
-		/// <summary>
+        /// <summary>
+        /// Gets all lite document models.
+        /// </summary>
+        /// <returns>
+        /// Returns the collection of document lite models.
+        /// </returns>
+	    List<DocumentModel> GetAllLiteDocuments();
+
+        /// <summary>
 		/// Gets the document by id.
 		/// </summary>
 		/// <param name="documentId">The document's id.</param>
 		/// <returns>
 		/// The document model.
 		/// </returns>
-		DocumentModel GetDocumentModelById(Guid documentId);
+		DocumentModel GetDocument(Guid documentId);
+
+        /// <summary>
+        /// Gets document lite model by id.
+        /// </summary>
+        /// <param name="documentId">The document id.</param>
+        /// <returns>
+        /// Returns document lite model.
+        /// </returns>
+	    DocumentModel GetLiteDocument(Guid documentId);
 
 		/// <summary>
-		/// Creates new document model.
+		/// Inserts new document.
 		/// </summary>
-		/// <param name="fileResultModel">The file result model.</param>
+		/// <param name="documentModel">The document model.</param>
 		/// <returns>
-		/// The guid of the created document model.
+		/// The guid of the created document.
 		/// </returns>
-		Guid CreateDocumentModel(FileResultModel fileResultModel);
+		Guid InsertDocument(DocumentModel documentModel); 
 	}
 }

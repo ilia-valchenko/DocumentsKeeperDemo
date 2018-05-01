@@ -31,7 +31,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 		/// <summary>
 		/// Initializes a new instance of the <see cref="UploadController"/> class.
 		/// </summary>
-		/// <param name="documentService"></param>
+		/// <param name="documentService">The document service.</param>
 		public UploadController(IDocumentService documentService)
 		{
 			this.documentService = documentService;
@@ -40,14 +40,14 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 		/// <summary>
 		/// Upload single file on the server.
 		/// </summary>
-		/// <returns></returns>
 		[HttpPost]
 		public async Task<FileResultViewModel> UploadSingleFile()
 		{
-			// TODO: Add exception handling.
+            // TODO: Add exception handling.
 
-			var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
-			await this.Request.Content.ReadAsMultipartAsync(streamProvider);
+            //var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
+            var streamProvider = new MultipartFormDataStreamProvider("D:/git/DocumentsKeeper/DocumentsKeeperDemo/DocumentsKeeperDemo.Web/App_Data/UploadedFiles");
+            await this.Request.Content.ReadAsMultipartAsync(streamProvider);
 
 			var fileResult = new FileResultViewModel
 			{
@@ -64,11 +64,25 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 
 			if (fileType == FileType.TXT.ToStringValue())
 			{
-				// TODO: Parse as .txt file.
+                // TODO: Parse as .txt file.
 
-				var fileModel = AutoMapper.Mapper.Map<FileResultModel>(fileResult);
-				//this.documentService.
-			}
+                this.documentService.InsertDocument(new DocumentModel
+                {
+                    FileType = FileType.TXT,
+                    CreatedDate = fileResult.CreatedTimestamp,
+                    Folder = new FolderModel
+                    {
+                        Id = new Guid("763f247a0d4145598c068019c3e350ae")
+                    },
+                    TextNasPath = "Fake text nas path",
+                    FileSize = 9999,
+                    FamilyId = 8888,
+                    UploadId = 7777
+                });
+
+
+                //this.documentService.
+            }
 
 			if (fileType == FileType.DOC.ToStringValue())
 			{

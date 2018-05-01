@@ -22,12 +22,10 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 			this.Map(x => x.DataType).Column("DATA_TYPE");
 			this.Map(x => x.IsMultipleValue).Column("IS_MULTIPLE_VALUE");
 
-			this.HasMany(x => x.FieldValues)
-				.Table("FIELD_VALUES")
-				.KeyColumn("FIELD_GUID");
-
-//			this.References(x => x.Folder)
-//				.ForeignKey("FOLDER_GUID");
+		    this.HasMany(x => x.FieldValues)
+		        .Table("FIELD_VALUES")
+		        .KeyColumn("FIELD_GUID")
+		        .Not.LazyLoad();
 		}
 	}
 }

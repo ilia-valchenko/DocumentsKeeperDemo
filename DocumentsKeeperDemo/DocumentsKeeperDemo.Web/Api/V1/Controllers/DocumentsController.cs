@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
 
@@ -33,7 +34,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 		/// </returns>
 		public List<DocumentViewModel> GetAllDocuments()
 		{
-            var documentModels = this.documentService.GetAllDocumentModels();
+            var documentModels = this.documentService.GetAllDocuments();
 			var documentViewModels = AutoMapper.Mapper.Map<List<DocumentViewModel>>(documentModels);
 			return documentViewModels;
 		}
@@ -45,11 +46,26 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 		/// <returns>
 		/// The document view model.
 		/// </returns>
-		public DocumentViewModel Get(Guid documentId)
+		public DocumentViewModel GetDocument(Guid documentId)
 		{
-            var documentModel = this.documentService.GetDocumentModelById(documentId);
+            var documentModel = this.documentService.GetDocument(documentId);
 			var documentViewModel = AutoMapper.Mapper.Map<DocumentViewModel>(documentModel);
 			return documentViewModel;
 		}
+
+        /// <summary>
+        /// Gets lite document by id.
+        /// </summary>
+        /// <param name="documentId">The document id.</param>
+        /// <returns>
+        /// Returns the document lite model.
+        /// </returns>
+	    public DocumentViewModel GetLiteDocument(Guid documentId)
+        {
+            var documentLiteModel = this.documentService.GetLiteDocument(documentId);
+            var documentLiteViewModel = Mapper.Map<DocumentViewModel>(documentLiteModel);
+
+            return documentLiteViewModel;
+        }
 	}
 }

@@ -22,6 +22,7 @@ namespace DocumentsKeeperDemo.Services
 			Repositories.Bootstrapper.RegisterDependencies(container);
 
 			container.RegisterType<IDocumentService, DocumentService>(new HierarchicalLifetimeManager());
+		    container.RegisterType<IFolderService, FolderService>(new HierarchicalLifetimeManager());
 		}
 
 		/// <summary>

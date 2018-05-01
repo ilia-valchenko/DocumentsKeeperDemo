@@ -17,19 +17,29 @@ namespace DocumentsKeeperDemo.Services.Registrars
 		/// </summary>
 		public AutoMapperProfile()
 		{
-			this.CreateMap<DocumentEntity, DocumentModel>()
+		    // Document
+            this.CreateMap<DocumentEntity, DocumentModel>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
 				.ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.FromTextAttributeStringToEnumValue<FileType>()));
 
-			this.CreateMap<FieldEntity, FieldModel>()
+		    this.CreateMap<DocumentModel, DocumentEntity>()
+		        .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
+		        .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.ToStringValue()));
+
+            // Field
+            this.CreateMap<FieldEntity, FieldModel>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
 				.ForMember(dest => dest.DataType, opt => opt.MapFrom(x => Enum.Parse(typeof(FieldDataType), x.DataType)));
 
 			this.CreateMap<FieldValueEntity, FieldValueModel>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)));
 
+            // Folder
 			this.CreateMap<FolderEntity, FolderModel>()
 				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)));
-		}
+
+		    this.CreateMap<FolderModel, FolderEntity>()
+		        .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()));
+        }
 	}
 }

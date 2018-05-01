@@ -31,7 +31,9 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 		/// <summary>
 		/// Get all document entities.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>
+		/// Returns the collection of the document entities.
+		/// </returns>
 		public List<DocumentEntity> GetAllDocumentEntities()
 		{
 			using (var session = this.sessionFactory.OpenSession())
@@ -48,7 +50,22 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 			}
 		}
 
-		/// <summary>
+	    /// <summary>
+	    /// Gets all document lite entities.
+	    /// </summary>
+	    /// <returns>
+	    /// Returns the collection of document lite entities.
+	    /// </returns>
+	    public List<DocumentEntity> GetAllDocumentLiteEntities()
+	    {
+	        using (var session = this.sessionFactory.OpenSession())
+	        {
+	            var documentLiteEntities = session.Query<DocumentEntity>().ToList();
+	            return documentLiteEntities;
+	        }
+        }
+
+	    /// <summary>
 		/// Gets the instance of the <see cref="DocumentEntity"/> class.
 		/// </summary>
 		/// <param name="predicate">The predicate.</param>
@@ -71,7 +88,23 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 			}
 		}
 
-		/// <summary>
+	    /// <summary>
+	    /// Gets document lite entity by predicate.
+	    /// </summary>
+	    /// <param name="predicate">The predicate.</param>
+	    /// <returns>
+	    /// Returns document lite entity.
+	    /// </returns>
+	    public DocumentEntity GetDocumentLiteEntity(Expression<Func<DocumentEntity, bool>> predicate)
+	    {
+	        using (var session = this.sessionFactory.OpenSession())
+	        {
+	            var documentLiteEntity = session.Query<DocumentEntity>().FirstOrDefault(predicate);
+	            return documentLiteEntity;
+	        }
+        }
+
+	    /// <summary>
 		/// Gets the collection of instances of the <see cref="DocumentEntity"/> class.
 		/// </summary>
 		/// <param name="predicate">The predicate.</param>
@@ -80,7 +113,35 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 		/// </returns>
 		public List<DocumentEntity> GetDocumentEntities(Expression<Func<DocumentEntity, bool>> predicate)
 		{
-			throw new NotImplementedException();
-		}
+		    using (var session = this.sessionFactory.OpenSession())
+		    {
+		        var documentEntities = session.Query<DocumentEntity>().Where(predicate).ToList();
+
+		        foreach (var entity in documentEntities)
+		        {
+		            NHibernateUtil.Initialize(entity.Folder);
+		            NHibernateUtil.Initialize(entity.FieldValues);
+                }
+
+		        return documentEntities;
+		    }
+        }
+
+        /// <summary>
+        /// Inserts document. 
+        /// </summary>
+        /// <param name="documentEntity">The document entity.</param>
+        public void InsertDocument(DocumentEntity documentEntity)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                // transaction start 
+                var result = session.Save(documentEntity); 
+                
+                //session.Flush();
+
+                // transaction commit
+            }
+        }
 	}
 }
