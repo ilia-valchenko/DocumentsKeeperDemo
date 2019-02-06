@@ -16,7 +16,7 @@
     <RootNamespace>DocumentsKeeperDemo.Web</RootNamespace>
     <AssemblyName>DocumentsKeeperDemo.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -158,6 +158,13 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="StaticContent\js\angular.min.js" />
+    <Content Include="StaticContent\js\app.js" />
+    <Content Include="StaticContent\js\documentsController.js" />
+    <Content Include="StaticContent\js\documentsService.js" />
+    <Content Include="StaticContent\js\fileModelDirective.js" />
+    <Content Include="StaticContent\js\jquery-3.3.1.min.js" />
+    <Content Include="StaticContent\js\uploadFileService.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +228,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>56238</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:56238/</IISUrl>
+          <IISUrl>http://localhost/DocumentsKeeperDemo.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
