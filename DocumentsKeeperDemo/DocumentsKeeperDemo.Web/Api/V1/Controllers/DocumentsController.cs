@@ -4,6 +4,7 @@ using System.Web.Http;
 using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
+using System.Web;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
@@ -26,12 +27,19 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
             this.documentService = documentService;
         }
 
+        [HttpPost]
+        public /*DocumentViewModel*/ void CreateDocument(HttpPostedFile file)
+        {
+            var test = 1;
+        }
+
         /// <summary>
         /// Gets all documents.
         /// </summary>
         /// <returns>
         /// The collection of all documents.
         /// </returns>
+        [HttpGet]
         public List<DocumentViewModel> GetAllDocuments()
         {
             var documentModels = this.documentService.GetAllDocuments();
@@ -46,6 +54,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// <returns>
         /// The document view model.
         /// </returns>
+        [HttpGet]
         public DocumentViewModel GetDocument(Guid documentId)
         {
             var documentModel = this.documentService.GetDocument(documentId);
@@ -60,6 +69,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// <returns>
         /// Returns the document lite model.
         /// </returns>
+        [HttpGet]
         public DocumentViewModel GetLiteDocument(Guid documentId)
         {
             var documentLiteModel = this.documentService.GetLiteDocument(documentId);
