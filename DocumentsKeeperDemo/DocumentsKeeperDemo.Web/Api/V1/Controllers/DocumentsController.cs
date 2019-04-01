@@ -4,15 +4,33 @@ using System.Web.Http;
 using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
-using System.Web;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
+    // TODO: Do not return FileResult. DocumentViewModel should
+    // be returned instead.
+    public class FileResult
+    {
+        public IEnumerable<string> FileNames { get; set; }
+        public string Description { get; set; }
+        public DateTime CreatedTimestamp { get; set; }
+        public DateTime UpdatedTimestamp { get; set; }
+        public string DownloadLink { get; set; }
+        public IEnumerable<string> ContentTypes { get; set; }
+        public IEnumerable<string> Names { get; set; }
+    }
+
     /// <summary>
     /// The document controller.
     /// </summary>
     public sealed class DocumentsController : ApiController
     {
+        // TODO: Move to config file.
+        private const string ServerUploadFolder = "C:\\Temp";
+
         /// <summary>
         /// The document service.
         /// </summary>
@@ -28,9 +46,21 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         }
 
         [HttpPost]
-        public /*DocumentViewModel*/ void CreateDocument(HttpPostedFile file)
+        public async Task<FileResult> Post()
         {
-            var test = 1;
+            var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
+            await Request.Content.ReadAsMultipartAsync(streamProvider);
+
+            return new FileResult
+            {
+                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
+                Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
+                ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
+                Description = streamProvider.FormData["description"],
+                CreatedTimestamp = DateTime.UtcNow,
+                UpdatedTimestamp = DateTime.UtcNow,
+                DownloadLink = "TODO, will implement when file is persisited"
+            };
         }
 
         /// <summary>
