@@ -23,7 +23,10 @@ namespace DocumentsKeeperDemo.Web
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-	        var container = new UnityContainer();
+            // Enable CORS
+            config.EnableCors();
+
+            var container = new UnityContainer();
 
 	        config.DependencyResolver = new UnityResolver(container);
 
