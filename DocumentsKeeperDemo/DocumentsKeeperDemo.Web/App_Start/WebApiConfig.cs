@@ -24,7 +24,8 @@ namespace DocumentsKeeperDemo.Web
             config.MapHttpAttributeRoutes();
 
             // Enable CORS
-            config.EnableCors();
+            var cors = new System.Web.Http.Cors.EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             var container = new UnityContainer();
 
