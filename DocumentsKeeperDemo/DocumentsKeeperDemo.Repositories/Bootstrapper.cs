@@ -24,6 +24,8 @@ namespace DocumentsKeeperDemo.Repositories
 
 			container.RegisterType<IDocumentRepository, DocumentRepository>(new HierarchicalLifetimeManager());
 		    container.RegisterType<IFolderRepository, FolderRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IFieldRepository, FieldRepository>(new HierarchicalLifetimeManager());
+            container.RegisterType<IFieldValueRepository, FieldValueRepository>(new HierarchicalLifetimeManager());
 		}
 	}
 }

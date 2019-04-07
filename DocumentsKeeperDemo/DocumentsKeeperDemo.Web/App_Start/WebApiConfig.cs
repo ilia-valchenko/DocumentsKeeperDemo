@@ -34,25 +34,36 @@ namespace DocumentsKeeperDemo.Web
 	        Bootstrapper.RegisterDependencies(container);
 			Bootstrapper.RegisterMappings();
 
-            config.Routes.MapHttpRoute(
-                name: "DocumentRouteWithAction",
-                routeTemplate: "api/{version}/{controller}/{action}/{documentId}",
-                defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
+            //config.Routes.MapHttpRoute(
+            //    name: "DocumentRouteWithAction",
+            //    routeTemplate: "api/{version}/{controller}/{action}/{documentId}",
+            //    defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
+
+            //config.Routes.MapHttpRoute(
+            //    name: "FolderRouteWithAction",
+            //    routeTemplate: "api/{version}/{controller}/{action}/{folderId}",
+            //    defaults: new { controller = "Folders", version = "v1", folderId = RouteParameter.Optional });
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DocumentRoute",
+            //    routeTemplate: "api/{version}/{controller}/{documentId}",
+            //    defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
+
+            //config.Routes.MapHttpRoute(
+            //    name: "FieldRoute",
+            //    routeTemplate: "api/{version}/{controller}/{action}/{fieldId}",
+            //    defaults: new { controller = "Fields", version = "v1", fieldId = RouteParameter.Optional });
+
+            //config.Routes.MapHttpRoute(
+            //    name: "DefaultApi",
+            //    routeTemplate: "api/{controller}/{id}",
+            //    defaults: new { id = RouteParameter.Optional }
+            //);
 
             config.Routes.MapHttpRoute(
-                name: "FolderRouteWithAction",
-                routeTemplate: "api/{version}/{controller}/{action}/{folderId}",
-                defaults: new { controller = "Folders", version = "v1", folderId = RouteParameter.Optional });
-
-            config.Routes.MapHttpRoute(
-                name: "DocumentRoute",
-                routeTemplate: "api/{version}/{controller}/{documentId}",
-                defaults: new { controller = "Documents", version = "v1", documentId = RouteParameter.Optional });
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "Default",
+                routeTemplate: "api/{version}/{controller}/{action}/{id}",
+                defaults: new { version = "v1", id = RouteParameter.Optional }
             );
         }
     }

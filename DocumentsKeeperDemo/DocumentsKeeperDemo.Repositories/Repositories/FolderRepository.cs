@@ -56,11 +56,13 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         /// <returns>
         /// Returns lite folder entity.
         /// </returns>
-        public FolderEntity GetLiteFolder(Expression<Func<FolderEntity, bool>> predicate)
+        public FolderLiteEntity GetLiteFolder(Expression<Func<FolderLiteEntity, bool>> predicate)
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var folderLiteEntity = session.Query<FolderEntity>().FirstOrDefault(predicate);
+                var folderLiteEntity = session.Query<FolderLiteEntity>()
+                    .FirstOrDefault(predicate);
+
                 return folderLiteEntity;
             }
         }
@@ -70,7 +72,8 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Returns the collection of the folder entities.</returns>
-        public List<FolderEntity> GetFolders(Expression<Func<FolderEntity, bool>> predicate)
+        public IEnumerable<FolderEntity> GetFolders(
+            Expression<Func<FolderEntity, bool>> predicate)
         {
             throw new NotImplementedException();
         }
@@ -81,7 +84,7 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         /// <returns>
         /// Returns the collection of the folder entities.
         /// </returns>
-        public List<FolderEntity> GetAllFolders()
+        public IEnumerable<FolderEntity> GetAllFolders()
         {
             using (var session = this.sessionFactory.OpenSession())
             {
@@ -91,8 +94,6 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
                 {
                     NHibernateUtil.Initialize(entity.Documents);
                     NHibernateUtil.Initialize(entity.Fields);
-
-                    
                 }
 
                 return folderEntities;
@@ -105,11 +106,11 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         /// <returns>
         /// Returns the collection of lite folder entities.
         /// </returns>
-        public List<FolderEntity> GetAllLiteFolders()
+        public IEnumerable<FolderLiteEntity> GetAllLiteFolders()
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var folderLiteEntities = session.Query<FolderEntity>().ToList();
+                var folderLiteEntities = session.Query<FolderLiteEntity>().ToList();
                 return folderLiteEntities;
             }
         }

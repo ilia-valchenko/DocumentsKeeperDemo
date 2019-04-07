@@ -50,7 +50,9 @@
     <Compile Include="Enums\FieldDataType.cs" />
     <Compile Include="Enums\FileType.cs" />
     <Compile Include="Enums\ResourceStatus.cs" />
+    <Compile Include="Enums\SystemField.cs" />
     <Compile Include="Extensions\EnumExtension.cs" />
+    <Compile Include="Exceptions\FolderNameIsNotSpecifiedException.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
     <Compile Include="Extensions\TextAttributeExtension.cs" />
     <Compile Include="Infrastructure\ApplicationLogger.cs" />

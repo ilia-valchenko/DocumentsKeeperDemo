@@ -40,7 +40,12 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// <summary>
 		/// The folder.
 		/// </summary>
-		public FolderModel Folder {get;set;}
+		public FolderModel Folder { get; set; }
+
+        /// <summary>
+        /// The id of the folder.
+        /// </summary>
+        public Guid FolderId { get; set; }
 
 		/// <summary>
 		/// The collection of the field value models.

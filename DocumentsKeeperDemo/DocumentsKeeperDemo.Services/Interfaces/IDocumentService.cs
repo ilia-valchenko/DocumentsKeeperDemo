@@ -13,7 +13,7 @@ namespace DocumentsKeeperDemo.Services.Interfaces
 		/// Gets all document models.
 		/// </summary>
 		/// <returns></returns>
-		List<DocumentModel> GetAllDocuments();
+		IEnumerable<DocumentModel> GetAllDocuments();
 
         /// <summary>
         /// Gets all lite document models.
@@ -21,7 +21,7 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// <returns>
         /// Returns the collection of document lite models.
         /// </returns>
-	    List<DocumentModel> GetAllLiteDocuments();
+	    IEnumerable<DocumentModel> GetAllLiteDocuments();
 
         /// <summary>
 		/// Gets the document by id.
@@ -48,6 +48,12 @@ namespace DocumentsKeeperDemo.Services.Interfaces
 		/// <returns>
 		/// The guid of the created document.
 		/// </returns>
-		Guid InsertDocument(DocumentModel documentModel); 
+		Guid InsertDocument(DocumentModel documentModel);
+
+        /// <summary>
+        /// Gets all lite documents for the specified folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        IEnumerable<DocumentModel> GetLiteDocumentsByFolderId(Guid folderId);
 	}
 }

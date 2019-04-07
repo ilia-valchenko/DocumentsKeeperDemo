@@ -8,10 +8,10 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 	/// </summary>
 	public class DocumentEntity : BaseDatabaseEntity
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FieldValueEntity"/> class.
-		/// </summary>
-		public DocumentEntity()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DocumentEntity"/> class.
+        /// </summary>
+        public DocumentEntity()
 		{
 			this.FieldValues = new List<FieldValueEntity>();
 		}

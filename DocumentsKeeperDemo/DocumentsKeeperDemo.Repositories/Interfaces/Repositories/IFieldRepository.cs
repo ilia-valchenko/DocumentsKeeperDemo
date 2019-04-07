@@ -17,7 +17,7 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 		/// <returns>
 		/// The instance of the <see cref="FieldEntity"/> class.
 		/// </returns>
-		FieldEntity GetFieldEntiy(Expression<Func<FieldEntity, bool>> predicate);
+		FieldEntity GetField(Expression<Func<FieldEntity, bool>> predicate);
 
 		/// <summary>
 		/// Gets the collection of instances of the <see cref="FieldEntity"/> class.
@@ -26,6 +26,9 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 		/// <returns>
 		/// The collection of instances of the <see cref="FieldEntity"/> class.
 		/// </returns>
-		List<FieldEntity> GetFieldEntities(Expression<Func<FieldEntity, bool>> predicate);
+		IEnumerable<FieldEntity> GetFields(Expression<Func<FieldEntity, bool>> predicate);
+
+        IEnumerable<FieldLiteEntity> GetLiteFields(
+            Expression<Func<FieldLiteEntity, bool>> predicate);
 	}
 }

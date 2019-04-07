@@ -43,9 +43,13 @@
   <ItemGroup>
     <Compile Include="Entities\BaseDatabaseEntity.cs" />
     <Compile Include="Entities\DocumentEntity.cs" />
+    <Compile Include="Entities\DocumentLiteEntity.cs" />
     <Compile Include="Entities\FieldEntity.cs" />
+    <Compile Include="Entities\FieldLiteEntity.cs" />
     <Compile Include="Entities\FieldValueEntity.cs" />
+    <Compile Include="Entities\FieldValueLiteEntity.cs" />
     <Compile Include="Entities\FolderEntity.cs" />
+    <Compile Include="Entities\FolderLiteEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

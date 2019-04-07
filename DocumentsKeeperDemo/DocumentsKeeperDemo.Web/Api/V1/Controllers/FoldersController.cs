@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
+using DocumentsKeeperDemo.Services.Models;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
@@ -31,13 +32,13 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// <summary>
         /// Gets folder lite view model.
         /// </summary>
-        /// <param name="folderId">The folder id.</param>
+        /// <param name="id">The folder id.</param>
         /// <returns>
         /// Returns folder lite view model.
         /// </returns>
-        public FolderViewModel GetLiteFolder(Guid folderId)
+        public FolderViewModel GetLiteFolder(Guid id)
         {
-            var folderLiteModel = this.folderService.GetLiteFolder(folderId);
+            var folderLiteModel = this.folderService.GetLiteFolder(id);
             var folderLiteViewModel = Mapper.Map<FolderViewModel>(folderLiteModel);
 
             return folderLiteViewModel;
@@ -49,7 +50,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// <returns>
         /// Returns the collection of the folder view models.
         /// </returns>
-        public List<FolderViewModel> GetAllFolders()
+        public IEnumerable<FolderViewModel> GetAllFolders()
         {
             var folderModels = this.folderService.GetAllFolders();
             var folderViewModels = Mapper.Map<List<FolderViewModel>>(folderModels);
@@ -58,30 +59,41 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         }
 
         /// <summary>
+        /// Gets folder by folder id.
+        /// </summary>
+        /// <param name="id">The id of the folder.</param>
+        public FolderViewModel GetFolderById(Guid id)
+        {
+            var folderModel = this.folderService.GetFolder(id);
+            var folderViewModel = Mapper.Map<FolderViewModel>(folderModel);
+
+            return folderViewModel;
+        }
+
+        /// <summary>
         /// Gets all folder lite view models.
         /// </summary>
         /// <returns>
         /// Returns the collection of folder lite view models.
         /// </returns>
-        public List<FolderViewModel> GetAllLiteFolders()
+        public IEnumerable<FolderModel> GetAllLiteFolders()
         {
             var folderLiteModels = this.folderService.GetAllLiteFolders();
-            var folderLiteViewModels = Mapper.Map<List<FolderViewModel>>(folderLiteModels);
 
-            return folderLiteViewModels;
+            return folderLiteModels;
         }
 
         /// <summary>
         /// Creates new folder. 
         /// </summary>
-        /// <param name="folderName">The name of the folder.</param>
+        /// <param name="createFolderModel">The crete folder model.</param>
         /// <returns>
         /// Returns the <see cref="HttpResponseMessage"/> class.
         /// </returns>
         [HttpPost]
-        public HttpResponseMessage PostCreateFolder([FromBody] string folderName)
+        public HttpResponseMessage Post(CreateFolderModel createFolderModel)
         {
-            this.folderService.CreateFolder(folderName);
+            this.folderService.CreateFolder(createFolderModel);
             return new HttpResponseMessage(HttpStatusCode.Created);
         }
     }

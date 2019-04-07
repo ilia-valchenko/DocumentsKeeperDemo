@@ -4,25 +4,9 @@ using System.Web.Http;
 using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
-    // TODO: Do not return FileResult. DocumentViewModel should
-    // be returned instead.
-    public class FileResult
-    {
-        public IEnumerable<string> FileNames { get; set; }
-        public string Description { get; set; }
-        public DateTime CreatedTimestamp { get; set; }
-        public DateTime UpdatedTimestamp { get; set; }
-        public string DownloadLink { get; set; }
-        public IEnumerable<string> ContentTypes { get; set; }
-        public IEnumerable<string> Names { get; set; }
-    }
-
     /// <summary>
     /// The document controller.
     /// </summary>
@@ -45,24 +29,6 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
             this.documentService = documentService;
         }
 
-        [HttpPost]
-        public async Task<FileResult> Post()
-        {
-            var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
-            await Request.Content.ReadAsMultipartAsync(streamProvider);
-
-            return new FileResult
-            {
-                FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
-                Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
-                ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
-                Description = streamProvider.FormData["description"],
-                CreatedTimestamp = DateTime.UtcNow,
-                UpdatedTimestamp = DateTime.UtcNow,
-                DownloadLink = "TODO, will implement when file is persisited"
-            };
-        }
-
         /// <summary>
         /// Gets all documents.
         /// </summary>
@@ -80,14 +46,14 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// <summary>
         /// Gets the document by id.
         /// </summary>
-        /// <param name="documentId">The document's id.</param>
+        /// <param name="id">The document's id.</param>
         /// <returns>
         /// The document view model.
         /// </returns>
         [HttpGet]
-        public DocumentViewModel GetDocument(Guid documentId)
+        public DocumentViewModel GetDocument(Guid id)
         {
-            var documentModel = this.documentService.GetDocument(documentId);
+            var documentModel = this.documentService.GetDocument(id);
             var documentViewModel = Mapper.Map<DocumentViewModel>(documentModel);
             return documentViewModel;
         }
@@ -95,17 +61,29 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// <summary>
         /// Gets lite document by id.
         /// </summary>
-        /// <param name="documentId">The document id.</param>
+        /// <param name="id">The document id.</param>
         /// <returns>
         /// Returns the document lite model.
         /// </returns>
         [HttpGet]
-        public DocumentViewModel GetLiteDocument(Guid documentId)
+        public DocumentViewModel GetLiteDocument(Guid id)
         {
-            var documentLiteModel = this.documentService.GetLiteDocument(documentId);
+            var documentLiteModel = this.documentService.GetLiteDocument(id);
             var documentLiteViewModel = Mapper.Map<DocumentViewModel>(documentLiteModel);
 
             return documentLiteViewModel;
+        }
+
+        [HttpGet]
+        public IEnumerable<DocumentViewModel> GetLiteDocumentsByFolderId(Guid folderId)
+        {
+            var liteDocumentModels = this.documentService
+                .GetLiteDocumentsByFolderId(folderId);
+
+            var liteDocumentsViewModels = Mapper
+                .Map<IEnumerable<DocumentViewModel>>(liteDocumentModels);
+
+            return liteDocumentsViewModels;
         }
     }
 }

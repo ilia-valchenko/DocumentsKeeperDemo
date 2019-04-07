@@ -16,7 +16,6 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 			this.Table("FOLDERS");
 
 			this.Id(x => x.Id).Column("FOLDER_GUID");
-
 			this.Map(x => x.Name).Column("NAME");
 			this.Map(x => x.CreatedDate).Column("CREATED_DATE");
 			this.Map(x => x.LastModified).Column("MODIFIED_DATE");

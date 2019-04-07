@@ -23,6 +23,8 @@ namespace DocumentsKeeperDemo.Services
 
 			container.RegisterType<IDocumentService, DocumentService>(new HierarchicalLifetimeManager());
 		    container.RegisterType<IFolderService, FolderService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IFileParseService, FileParseService>(new HierarchicalLifetimeManager());
+            container.RegisterType<IFieldService, FieldService>(new HierarchicalLifetimeManager());
 		}
 
 		/// <summary>

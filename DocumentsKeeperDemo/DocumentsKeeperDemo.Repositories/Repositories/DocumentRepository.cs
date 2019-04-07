@@ -34,7 +34,7 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 		/// <returns>
 		/// Returns the collection of the document entities.
 		/// </returns>
-		public List<DocumentEntity> GetAllDocumentEntities()
+		public IEnumerable<DocumentEntity> GetAllDocumentEntities()
 		{
 			using (var session = this.sessionFactory.OpenSession())
 			{
@@ -56,11 +56,11 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 	    /// <returns>
 	    /// Returns the collection of document lite entities.
 	    /// </returns>
-	    public List<DocumentEntity> GetAllDocumentLiteEntities()
+	    public IEnumerable<DocumentLiteEntity> GetAllDocumentLiteEntities()
 	    {
 	        using (var session = this.sessionFactory.OpenSession())
 	        {
-	            var documentLiteEntities = session.Query<DocumentEntity>().ToList();
+	            var documentLiteEntities = session.Query<DocumentLiteEntity>().ToList();
 	            return documentLiteEntities;
 	        }
         }
@@ -76,7 +76,8 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 		{
 			using (var session = this.sessionFactory.OpenSession())
 			{
-				var documentEntity = session.Query<DocumentEntity>().FirstOrDefault(predicate);
+				var documentEntity = session.Query<DocumentEntity>()
+                    .FirstOrDefault(predicate);
 
 				if (documentEntity != null)
 				{
@@ -95,11 +96,14 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 	    /// <returns>
 	    /// Returns document lite entity.
 	    /// </returns>
-	    public DocumentEntity GetDocumentLiteEntity(Expression<Func<DocumentEntity, bool>> predicate)
+	    public DocumentLiteEntity GetDocumentLiteEntity(
+            Expression<Func<DocumentLiteEntity, bool>> predicate)
 	    {
 	        using (var session = this.sessionFactory.OpenSession())
 	        {
-	            var documentLiteEntity = session.Query<DocumentEntity>().FirstOrDefault(predicate);
+	            var documentLiteEntity = session.Query<DocumentLiteEntity>()
+                    .FirstOrDefault(predicate);
+
 	            return documentLiteEntity;
 	        }
         }
@@ -111,11 +115,13 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
 		/// <returns>
 		/// The collection of instances of the <see cref="DocumentEntity"/> class.
 		/// </returns>
-		public List<DocumentEntity> GetDocumentEntities(Expression<Func<DocumentEntity, bool>> predicate)
+		public IEnumerable<DocumentEntity> GetDocumentEntities(
+            Expression<Func<DocumentEntity, bool>> predicate)
 		{
 		    using (var session = this.sessionFactory.OpenSession())
 		    {
-		        var documentEntities = session.Query<DocumentEntity>().Where(predicate).ToList();
+		        var documentEntities = session.Query<DocumentEntity>()
+                    .Where(predicate).ToList();
 
 		        foreach (var entity in documentEntities)
 		        {
@@ -143,5 +149,18 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
                 // transaction commit
             }
         }
-	}
+
+        public IEnumerable<DocumentLiteEntity> GetDocumentLiteEntities(
+            Expression<Func<DocumentLiteEntity, bool>> predicate)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                var documentLiteEntities = session.Query<DocumentLiteEntity>()
+                    .Where(predicate)
+                    .ToList();
+
+                return documentLiteEntities;
+            }
+        }
+    }
 }

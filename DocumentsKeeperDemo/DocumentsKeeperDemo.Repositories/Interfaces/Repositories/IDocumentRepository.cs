@@ -1,7 +1,7 @@
-﻿using DocumentsKeeperDemo.Core.Repositories.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using DocumentsKeeperDemo.Core.Repositories.Entities;
 
 namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 {
@@ -14,7 +14,7 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 		/// Gets all document entities.
 		/// </summary>
 		/// <returns></returns>
-		List<DocumentEntity> GetAllDocumentEntities();
+		IEnumerable<DocumentEntity> GetAllDocumentEntities();
 
         /// <summary>
         /// Gets all document lite entities.
@@ -22,7 +22,7 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns the collection of document lite entities.
         /// </returns>
-	    List<DocumentEntity> GetAllDocumentLiteEntities();
+	    IEnumerable<DocumentLiteEntity> GetAllDocumentLiteEntities();
 
         /// <summary>
 		/// Gets the instance of the <see cref="DocumentEntity"/> class.
@@ -40,7 +40,8 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns document lite entity.
         /// </returns>
-	    DocumentEntity GetDocumentLiteEntity(Expression<Func<DocumentEntity, bool>> predicate);
+	    DocumentLiteEntity GetDocumentLiteEntity(
+            Expression<Func<DocumentLiteEntity, bool>> predicate);
 
 		/// <summary>
 		/// Gets the collection of instances of the <see cref="DocumentEntity"/> class.
@@ -49,12 +50,20 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 		/// <returns>
 		/// The collection of instances of the <see cref="DocumentEntity"/> class.
 		/// </returns>
-		List<DocumentEntity> GetDocumentEntities(Expression<Func<DocumentEntity, bool>> predicate);
+		IEnumerable<DocumentEntity> GetDocumentEntities(
+            Expression<Func<DocumentEntity, bool>> predicate);
 
         /// <summary>
         /// Inserts document. 
         /// </summary>
         /// <param name="documentEntity">The document entity.</param>
         void InsertDocument(DocumentEntity documentEntity);
+
+        /// <summary>
+        /// Gets the collection of the document lite entities by using the predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        IEnumerable<DocumentLiteEntity> GetDocumentLiteEntities(
+            Expression<Func<DocumentLiteEntity, bool>> predicate);
 	}
 }

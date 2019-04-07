@@ -40,6 +40,11 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// </summary>
 		public virtual FolderEntity Folder { get; set; }
 
+        /// <summary>
+        /// The id of the folder the field belong to.
+        /// </summary>
+        public virtual string FolderId { get; set; }
+
 		/// <summary>
 		/// The collection of the field value entities.
 		/// </summary>

@@ -69,10 +69,10 @@ namespace DocumentsKeeperDemo.Services.Services
         /// <returns>
         /// Returns the collection of the folder models.
         /// </returns>
-        public List<FolderModel> GetAllFolders()
+        public IEnumerable<FolderModel> GetAllFolders()
         {
             var folderEntities = this.folderRepository.GetAllFolders();
-            var folderModels = Mapper.Map<List<FolderModel>>(folderEntities);
+            var folderModels = Mapper.Map<IEnumerable<FolderModel>>(folderEntities);
 
             return folderModels;
         }
@@ -83,10 +83,10 @@ namespace DocumentsKeeperDemo.Services.Services
         /// <returns>
         /// Returns the collection of folder lite models.
         /// </returns>
-        public List<FolderModel> GetAllLiteFolders()
+        public IEnumerable<FolderModel> GetAllLiteFolders()
         {
             var folderLiteEntities = this.folderRepository.GetAllLiteFolders();
-            var folderLiteModels = Mapper.Map<List<FolderModel>>(folderLiteEntities);
+            var folderLiteModels = Mapper.Map<IEnumerable<FolderModel>>(folderLiteEntities);
 
             return folderLiteModels;
         }
@@ -94,18 +94,20 @@ namespace DocumentsKeeperDemo.Services.Services
         /// <summary>
         /// Creates folder.
         /// </summary>
-        /// <param name="folderName">The name of the folder.</param>
-        public void CreateFolder(string folderName)
+        /// <param name="createFolderModel">The create folder model.</param>
+        public void CreateFolder(CreateFolderModel createFolderModel)
         {
-            if (string.IsNullOrEmpty(folderName))
+            Guard.ArgumentNotNull(createFolderModel, nameof(createFolderModel));
+
+            if (string.IsNullOrWhiteSpace(createFolderModel.FolderName))
             {
-                throw new ArgumentException("The name of the folder is null or empty.");
+                throw new FolderNameIsNotSpecifiedException("Cannot create folder. The name was not specified.");
             }
 
             var folderModel = new FolderModel
             {
                 Id = Guid.NewGuid(),
-                Name = folderName,
+                Name = createFolderModel.FolderName,
                 CreatedDate = DateTime.Now,
                 LastModified = DateTime.Now
             };
@@ -113,6 +115,19 @@ namespace DocumentsKeeperDemo.Services.Services
             var folderEntity = Mapper.Map<FolderEntity>(folderModel);
 
             this.folderRepository.InsertFolder(folderEntity);
+        }
+
+        private IEnumerable<FieldModel> CreateSystemFields()
+        {
+            return new List<FieldModel>
+            {
+                //new FieldModel
+                //{
+                //    Id = Guid.NewGuid(),
+                //    Name = SystemField.FileName.ToStringValue(),
+                //    DisplayName = 
+                //}
+            };
         }
     }
 }

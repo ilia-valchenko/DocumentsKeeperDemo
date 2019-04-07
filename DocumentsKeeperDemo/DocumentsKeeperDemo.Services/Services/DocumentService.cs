@@ -33,10 +33,10 @@ namespace DocumentsKeeperDemo.Services.Services
 		/// Gets all document models.
 		/// </summary>
 		/// <returns></returns>
-		public List<DocumentModel> GetAllDocuments()
+		public IEnumerable<DocumentModel> GetAllDocuments()
 		{
 			var documentEntities = this.documentRepository.GetAllDocumentEntities();
-			var documentModels = AutoMapper.Mapper.Map<List<DocumentModel>>(documentEntities);
+			var documentModels = Mapper.Map<IEnumerable<DocumentModel>>(documentEntities);
 
 			return documentModels;
 		}
@@ -47,10 +47,10 @@ namespace DocumentsKeeperDemo.Services.Services
 	    /// <returns>
 	    /// Returns the collection of document lite models.
 	    /// </returns>
-	    public List<DocumentModel> GetAllLiteDocuments()
+	    public IEnumerable<DocumentModel> GetAllLiteDocuments()
 	    {
 	        var documentLiteEntities = this.documentRepository.GetAllDocumentLiteEntities();
-	        var documentLiteModels = Mapper.Map<List<DocumentModel>>(documentLiteEntities);
+	        var documentLiteModels = Mapper.Map<IEnumerable<DocumentModel>>(documentLiteEntities);
 
 	        return documentLiteModels;
 	    }
@@ -87,6 +87,25 @@ namespace DocumentsKeeperDemo.Services.Services
 	        var documentLiteModel = Mapper.Map<DocumentModel>(documentLiteEntity);
 
 	        return documentLiteModel;
+        }
+
+        /// <summary>
+        /// Gets all lite documents that are contained in the specified folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        public IEnumerable<DocumentModel> GetLiteDocumentsByFolderId(Guid folderId)
+        {
+            if (folderId == Guid.Empty)
+            {
+                return null;
+            }
+
+            var liteDocumentEntities = this.documentRepository
+                .GetDocumentLiteEntities(d => d.FolderId == folderId.ToNonDashedString());
+
+            var liteDocumentModels = Mapper.Map<IEnumerable<DocumentModel>>(liteDocumentEntities);
+
+            return liteDocumentModels;
         }
 
         /// <summary>

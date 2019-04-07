@@ -5,7 +5,7 @@
 
         $https:.post(uploadUrl, fd, {
             transformRequest: angular.identity,
-            headers: {"Content-Type": underfined}
+            headers: {"Content-Type": undefined}
         }).then(function successCallback() {
 
             },

@@ -24,14 +24,14 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns the lite folder entity.
         /// </returns>
-        FolderEntity GetLiteFolder(Expression<Func<FolderEntity, bool>> predicate);
+        FolderLiteEntity GetLiteFolder(Expression<Func<FolderLiteEntity, bool>> predicate);
 
         /// <summary>
         /// Gets the collection of the folder entities. 
         /// </summary>
         /// <param name="predicate">The predicate.</param>
         /// <returns>Returns the collection of folder entities.</returns>
-        List<FolderEntity> GetFolders(Expression<Func<FolderEntity, bool>> predicate);
+        IEnumerable<FolderEntity> GetFolders(Expression<Func<FolderEntity, bool>> predicate);
 
         /// <summary>
         /// Gets all folder entities.
@@ -39,7 +39,7 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns the collection of the folder entities.
         /// </returns>
-        List<FolderEntity> GetAllFolders();
+        IEnumerable<FolderEntity> GetAllFolders();
 
         /// <summary>
         /// Gets all lite folder entities.
@@ -47,7 +47,7 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns the collection of folder lite entities.
         /// </returns>
-        List<FolderEntity> GetAllLiteFolders();
+        IEnumerable<FolderLiteEntity> GetAllLiteFolders();
 
         /// <summary>
         /// Inserts new folder.

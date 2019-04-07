@@ -17,10 +17,20 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// </summary>
 		public DocumentModel Document { get; set; }
 
+        /// <summary>
+        /// The id of the document that field value belong to.
+        /// </summary>
+        public Guid DocumentId { get; set; }
+
 		/// <summary>
 		/// The field.
 		/// </summary>
 		public FieldModel Field { get; set; }
+
+        /// <summary>
+        /// The id of the field that the field value belong to.
+        /// </summary>
+        public Guid FieldId { get; set; }
 
 		/// <summary>
 		/// The text value.

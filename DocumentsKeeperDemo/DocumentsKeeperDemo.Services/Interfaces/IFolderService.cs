@@ -33,7 +33,7 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// <returns>
         /// Returns the collection of the folder models.
         /// </returns>
-        List<FolderModel> GetAllFolders();
+        IEnumerable<FolderModel> GetAllFolders();
 
         /// <summary>
         /// Gets all lite folder models.
@@ -41,12 +41,12 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// <returns>
         /// Returns the collection of folder lite models.
         /// </returns>
-        List<FolderModel> GetAllLiteFolders();
+        IEnumerable<FolderModel> GetAllLiteFolders();
 
         /// <summary>
         /// Creates folder.
         /// </summary>
-        /// <param name="folderName">The name of the folder.</param>
-        void CreateFolder(string folderName);
+        /// <param name="createFolderModel">The create folder model.</param>
+        void CreateFolder(CreateFolderModel createFolderModel);
     }
 }
