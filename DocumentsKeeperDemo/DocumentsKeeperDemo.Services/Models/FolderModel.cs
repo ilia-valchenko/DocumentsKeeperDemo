@@ -30,12 +30,12 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// <summary>
 		/// The collection of the documents.
 		/// </summary>
-		public IList<DocumentModel> Documents { get; set; }
+		public IEnumerable<DocumentModel> Documents { get; set; }
 
 		/// <summary>
 		/// The collection of the fields.
 		/// </summary>
-		public IList<FieldModel> Fields { get; set; }
+		public IEnumerable<FieldModel> Fields { get; set; }
 
 		/// <summary>
 		/// The created date.

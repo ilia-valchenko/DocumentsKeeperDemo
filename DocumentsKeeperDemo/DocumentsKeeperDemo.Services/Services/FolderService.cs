@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
+using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Extensions;
 using DocumentsKeeperDemo.Core.Infrastructure;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
@@ -112,21 +113,29 @@ namespace DocumentsKeeperDemo.Services.Services
                 LastModified = DateTime.Now
             };
 
+            folderModel.Fields = this.CreateSystemFieldsForFolder(folderModel.Id);
+
             var folderEntity = Mapper.Map<FolderEntity>(folderModel);
 
             this.folderRepository.InsertFolder(folderEntity);
         }
 
-        private IEnumerable<FieldModel> CreateSystemFields()
+        private IEnumerable<FieldModel> CreateSystemFieldsForFolder(Guid folderId)
         {
             return new List<FieldModel>
             {
-                //new FieldModel
-                //{
-                //    Id = Guid.NewGuid(),
-                //    Name = SystemField.FileName.ToStringValue(),
-                //    DisplayName = 
-                //}
+                // TODO: Remove magic strings.
+                new FieldModel
+                {
+                    Id = Guid.NewGuid(),
+                    Name = SystemField.FileName.ToStringValue(),
+                    DisplayName = "File name",
+                    DataType = FieldDataType.STRING,
+                    FolderId = folderId,
+                    //FieldValues = 
+                    //Folder = 
+                    IsMultipleValue = false
+                }
             };
         }
     }
