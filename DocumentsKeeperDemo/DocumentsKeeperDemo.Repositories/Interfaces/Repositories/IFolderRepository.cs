@@ -50,9 +50,15 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         IEnumerable<FolderLiteEntity> GetAllLiteFolders();
 
         /// <summary>
-        /// Inserts new folder.
+        /// Creates a new folder.
         /// </summary>
         /// <param name="folderEntity">The folder entity.</param>
-        void InsertFolder(FolderEntity folderEntity);
+        FolderEntity CreateFolder(FolderEntity folderEntity);
+
+        /// <summary>
+        /// Removes folder by id.
+        /// </summary>
+        /// <param name="folderId">The id of the folder that have to be removed.</param>
+        void DeleteFolder(Guid folderId);
     }
 }

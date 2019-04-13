@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Extensions;
 using DocumentsKeeperDemo.Core.Infrastructure;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
@@ -22,12 +21,21 @@ namespace DocumentsKeeperDemo.Services.Services
         private readonly IFolderRepository folderRepository;
 
         /// <summary>
+        /// The field service.
+        /// </summary>
+        private readonly IFieldService fieldService;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="FolderService"/> class.
         /// </summary>
+        /// <param name="fieldService">The field service.</param>
         /// <param name="folderRepository">The folder repository.</param>
-        public FolderService(IFolderRepository folderRepository)
+        public FolderService(
+            IFieldService fieldService,
+            IFolderRepository folderRepository)
         {
             this.folderRepository = folderRepository;
+            this.fieldService = fieldService;
         }
 
         /// <summary>
@@ -96,7 +104,7 @@ namespace DocumentsKeeperDemo.Services.Services
         /// Creates folder.
         /// </summary>
         /// <param name="createFolderModel">The create folder model.</param>
-        public void CreateFolder(CreateFolderModel createFolderModel)
+        public FolderModel CreateFolder(CreateFolderModel createFolderModel)
         {
             Guard.ArgumentNotNull(createFolderModel, nameof(createFolderModel));
 
@@ -113,30 +121,18 @@ namespace DocumentsKeeperDemo.Services.Services
                 LastModified = DateTime.Now
             };
 
-            folderModel.Fields = this.CreateSystemFieldsForFolder(folderModel.Id);
+            //folderModel.Fields = this.fieldService.CreateSystemFieldsForFolder(folderModel.Id);
 
             var folderEntity = Mapper.Map<FolderEntity>(folderModel);
+            var createdFolderEntity = this.folderRepository.CreateFolder(folderEntity);
+            var createdFolderModel = Mapper.Map<FolderModel>(createdFolderEntity);
 
-            this.folderRepository.InsertFolder(folderEntity);
+            return createdFolderModel;
         }
 
-        private IEnumerable<FieldModel> CreateSystemFieldsForFolder(Guid folderId)
+        public void DeleteFolder(Guid folderId)
         {
-            return new List<FieldModel>
-            {
-                // TODO: Remove magic strings.
-                new FieldModel
-                {
-                    Id = Guid.NewGuid(),
-                    Name = SystemField.FileName.ToStringValue(),
-                    DisplayName = "File name",
-                    DataType = FieldDataType.STRING,
-                    FolderId = folderId,
-                    //FieldValues = 
-                    //Folder = 
-                    IsMultipleValue = false
-                }
-            };
+            this.folderRepository.DeleteFolder(folderId);
         }
     }
 }

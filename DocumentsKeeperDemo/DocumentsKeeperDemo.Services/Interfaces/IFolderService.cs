@@ -47,6 +47,11 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// Creates folder.
         /// </summary>
         /// <param name="createFolderModel">The create folder model.</param>
-        void CreateFolder(CreateFolderModel createFolderModel);
+        FolderModel CreateFolder(CreateFolderModel createFolderModel);
+
+        /// <summary>
+        /// Removes folder.
+        /// </summary>
+        void DeleteFolder(Guid folderId);
     }
 }

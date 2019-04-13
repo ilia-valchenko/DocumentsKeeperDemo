@@ -5,13 +5,16 @@ using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
 using AutoMapper;
 using DocumentsKeeperDemo.Core.Extensions;
-using System.Linq;
 using DocumentsKeeperDemo.Core.Infrastructure;
 using DocumentsKeeperDemo.Core.Exceptions;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
+using DocumentsKeeperDemo.Core.Enums;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
+    /// <summary>
+    /// The field service.
+    /// </summary>
     public class FieldService : IFieldService
     {
         private readonly IFieldRepository fieldRepository;
@@ -43,7 +46,7 @@ namespace DocumentsKeeperDemo.Services.Services
             this.ValidateField(field);
 
             field.Id = Guid.NewGuid();
-            field.DisplayName = field.Name.Trim();
+            field.Name = field.DisplayName.Trim();
 
             var fieldEntity = Mapper.Map<FieldEntity>(field);
             var createdFieldEntity = this.fieldRepository.CreateField(fieldEntity);
@@ -57,6 +60,31 @@ namespace DocumentsKeeperDemo.Services.Services
             this.fieldRepository.DeleteField(fieldId);
         }
 
+        public IEnumerable<FieldModel> CreateSystemFieldsForFolder(Guid folderId)
+        {
+            return new List<FieldModel>
+            {
+                new FieldModel
+                {
+                    Id = Guid.NewGuid(),
+                    Name = SystemField.FileName.ToStringValue().Replace(" ", string.Empty),
+                    DisplayName = SystemField.FileName.ToStringValue(),
+                    DataType = FieldDataType.STRING,
+                    FolderId = folderId,
+                    IsMultipleValue = false,
+                },
+                new FieldModel
+                {
+                    Id = Guid.NewGuid(),
+                    Name = SystemField.FileText.ToStringValue().Replace(" ", string.Empty),
+                    DisplayName = SystemField.FileText.ToStringValue(),
+                    DataType = FieldDataType.STRING,
+                    FolderId = folderId,
+                    IsMultipleValue = false
+                }
+            };
+        }
+
         private void ValidateField(FieldModel field)
         {
             Guard.ArgumentNotNull(field, nameof(field));
@@ -66,7 +94,7 @@ namespace DocumentsKeeperDemo.Services.Services
                 throw new InvalidFieldException("FolderId is not specified.");
             }
 
-            if (string.IsNullOrWhiteSpace(field.Name))
+            if (string.IsNullOrWhiteSpace(field.DisplayName))
             {
                 throw new InvalidFieldException("The name of the field is empty.");
             }

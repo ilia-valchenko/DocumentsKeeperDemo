@@ -11,5 +11,7 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         FieldModel CreateField(FieldModel field);
 
         void DeleteField(Guid fieldId);
+
+        IEnumerable<FieldModel> CreateSystemFieldsForFolder(Guid folderId);
     }
 }

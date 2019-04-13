@@ -91,10 +91,17 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// Returns the <see cref="HttpResponseMessage"/> class.
         /// </returns>
         [HttpPost]
-        public HttpResponseMessage Post(CreateFolderModel createFolderModel)
+        public HttpResponseMessage CreateFolder(CreateFolderModel createFolderModel)
         {
-            this.folderService.CreateFolder(createFolderModel);
-            return new HttpResponseMessage(HttpStatusCode.Created);
+            var createdFolder = this.folderService.CreateFolder(createFolderModel);
+            return Request.CreateResponse(HttpStatusCode.Created, createdFolder);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteFolder(Guid id)
+        {
+            this.folderService.DeleteFolder(id);
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 }

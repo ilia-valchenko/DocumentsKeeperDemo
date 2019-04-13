@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DocumentsKeeperDemo.Core.Repositories.Entities
 {
@@ -25,11 +24,11 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// <summary>
 		/// The collection of the document entities.
 		/// </summary>
-		public virtual IList<DocumentEntity> Documents { get; set; }
+		public virtual IEnumerable<DocumentEntity> Documents { get; set; }
 
 		/// <summary>
 		/// The collection of the field entities.
 		/// </summary>
-		public virtual IList<FieldEntity> Fields { get; set; }
+		public virtual IEnumerable<FieldEntity> Fields { get; set; }
 	}
 }

@@ -20,13 +20,13 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 			this.Map(x => x.CreatedDate).Column("CREATED_DATE");
 			this.Map(x => x.ModifiedDate).Column("MODIFIED_DATE");
 
-		    this.HasMany(x => x.Documents)
-		        .Table("DOCUMENTS")
-		        .KeyColumn("FOLDER_GUID");
+            //this.HasMany(x => x.Documents)
+            //    .Table("DOCUMENTS")
+            //    .KeyColumn("FOLDER_GUID");
 
-		    this.HasMany(x => x.Fields)
-		        .Table("FIELDS")
-		        .KeyColumn("FOLDER_GUID");
-		}
+            this.HasMany(x => x.Fields)
+                .Table("FIELDS")
+                .KeyColumn("FOLDER_GUID");
+        }
 	}
 }

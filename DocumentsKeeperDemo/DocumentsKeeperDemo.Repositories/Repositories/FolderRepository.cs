@@ -6,6 +6,8 @@ using DocumentsKeeperDemo.Core.Repositories.Entities;
 using DocumentsKeeperDemo.Repositories.Interfaces.Repositories;
 using NHibernate;
 using NHibernate.Linq;
+using DocumentsKeeperDemo.Repositories.Extensions;
+using DocumentsKeeperDemo.Core.Extensions;
 
 namespace DocumentsKeeperDemo.Repositories.Repositories
 {
@@ -116,15 +118,28 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         }
 
         /// <summary>
-        /// Inserts new folder. 
+        /// Creates a new folder.
         /// </summary>
         /// <param name="folderEntity">The folder entity.</param>
-        public void InsertFolder(FolderEntity folderEntity)
+        public FolderEntity CreateFolder(FolderEntity folderEntity)
         {
             using (var session = this.sessionFactory.OpenSession())
             {
+                var transaction = session.BeginTransaction();
                 var result = session.Save(folderEntity);
-                session.Flush();
+                transaction.Commit();
+
+                return folderEntity;
+            }
+        }
+
+        public void DeleteFolder(Guid folderId)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                var transaction = session.BeginTransaction();
+                session.DeleteById<FolderEntity>(folderId.ToNonDashedString());
+                transaction.Commit();
             }
         }
     }
