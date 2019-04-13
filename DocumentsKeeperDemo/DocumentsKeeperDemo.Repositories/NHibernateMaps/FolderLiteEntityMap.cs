@@ -19,7 +19,7 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 
             this.Map(x => x.Name).Column("NAME");
             this.Map(x => x.CreatedDate).Column("CREATED_DATE");
-            this.Map(x => x.LastModified).Column("MODIFIED_DATE");
+            this.Map(x => x.ModifiedDate).Column("MODIFIED_DATE");
         }
     }
 }

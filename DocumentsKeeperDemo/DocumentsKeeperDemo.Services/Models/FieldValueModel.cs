@@ -51,5 +51,15 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// The datetime value.
 		/// </summary>
 		public DateTime DateTimeValue { get; set; }
-	}
+
+        /// <summary>
+        /// The date of the field value creation.
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// The date of the field value modification.
+        /// </summary>
+        public DateTime ModifiedDate { get; set; }
+    }
 }

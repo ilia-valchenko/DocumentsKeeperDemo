@@ -40,6 +40,10 @@ namespace DocumentsKeeperDemo.Services.Registrars
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
                 .ForMember(dest => dest.FolderId, opt => opt.MapFrom(x => Guid.Parse(x.FolderId)));
 
+            this.CreateMap<FieldModel, FieldEntity>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
+                .ForMember(dest => dest.FolderId, opt => opt.MapFrom(x => x.FolderId.ToNonDashedString()));
+
             // Field value
             this.CreateMap<FieldValueEntity, FieldValueModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)));
@@ -51,13 +55,16 @@ namespace DocumentsKeeperDemo.Services.Registrars
 
             // Folder
             this.CreateMap<FolderEntity, FolderModel>()
-				.ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
+                .ForMember(dest => dest.LastModified, opt => opt.MapFrom(x => x.ModifiedDate));
 
-		    this.CreateMap<FolderModel, FolderEntity>()
-		        .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()));
+            this.CreateMap<FolderModel, FolderEntity>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
+                .ForMember(dest => dest.ModifiedDate, opt => opt.MapFrom(x => x.LastModified));
 
             this.CreateMap<FolderLiteEntity, FolderModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
+                .ForMember(dest => dest.LastModified, opt => opt.MapFrom(x => x.ModifiedDate));
         }
 	}
 }

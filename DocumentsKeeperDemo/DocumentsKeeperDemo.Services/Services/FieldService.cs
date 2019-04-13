@@ -6,6 +6,9 @@ using DocumentsKeeperDemo.Services.Models;
 using AutoMapper;
 using DocumentsKeeperDemo.Core.Extensions;
 using System.Linq;
+using DocumentsKeeperDemo.Core.Infrastructure;
+using DocumentsKeeperDemo.Core.Exceptions;
+using DocumentsKeeperDemo.Core.Repositories.Entities;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
@@ -13,6 +16,10 @@ namespace DocumentsKeeperDemo.Services.Services
     {
         private readonly IFieldRepository fieldRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FieldService"/> class.
+        /// </summary>
+        /// <param name="fieldRepository">The field repository.</param>
         public FieldService(IFieldRepository fieldRepository)
         {
             this.fieldRepository = fieldRepository;
@@ -29,6 +36,40 @@ namespace DocumentsKeeperDemo.Services.Services
                 .GetLiteFields(f => f.FolderId == folderId.ToNonDashedString());
 
             return Mapper.Map<IEnumerable<FieldModel>>(liteFolderEntities);
+        }
+
+        public FieldModel CreateField(FieldModel field)
+        {
+            this.ValidateField(field);
+
+            field.Id = Guid.NewGuid();
+            field.DisplayName = field.Name.Trim();
+
+            var fieldEntity = Mapper.Map<FieldEntity>(field);
+            var createdFieldEntity = this.fieldRepository.CreateField(fieldEntity);
+            var createdFieldModel = Mapper.Map<FieldModel>(createdFieldEntity);
+
+            return createdFieldModel;
+        }
+
+        public void DeleteField(Guid fieldId)
+        {
+            this.fieldRepository.DeleteField(fieldId);
+        }
+
+        private void ValidateField(FieldModel field)
+        {
+            Guard.ArgumentNotNull(field, nameof(field));
+
+            if (field.FolderId == Guid.Empty)
+            {
+                throw new InvalidFieldException("FolderId is not specified.");
+            }
+
+            if (string.IsNullOrWhiteSpace(field.Name))
+            {
+                throw new InvalidFieldException("The name of the field is empty.");
+            }
         }
     }
 }

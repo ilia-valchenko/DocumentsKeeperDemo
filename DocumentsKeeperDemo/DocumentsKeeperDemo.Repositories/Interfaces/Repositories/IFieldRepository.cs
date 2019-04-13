@@ -30,5 +30,14 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 
         IEnumerable<FieldLiteEntity> GetLiteFields(
             Expression<Func<FieldLiteEntity, bool>> predicate);
-	}
+
+        /// <summary>
+        /// Creates a new field.
+        /// </summary>
+        /// <param name="field">The field entity.</param>
+        /// <returns>Returns created field.</returns>
+        FieldEntity CreateField(FieldEntity field);
+
+        void DeleteField(Guid fieldId);
+    }
 }

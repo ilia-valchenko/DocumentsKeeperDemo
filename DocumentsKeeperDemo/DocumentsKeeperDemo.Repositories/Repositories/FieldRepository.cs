@@ -6,9 +6,14 @@ using DocumentsKeeperDemo.Repositories.Interfaces.Repositories;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using NHibernate;
 using NHibernate.Linq;
+using DocumentsKeeperDemo.Core.Extensions;
+using DocumentsKeeperDemo.Repositories.Extensions;
 
 namespace DocumentsKeeperDemo.Repositories.Repositories
 {
+    /// <summary>
+    /// The field repository.
+    /// </summary>
     public class FieldRepository : IFieldRepository
     {
         /// <summary>
@@ -16,6 +21,10 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         /// </summary>
         private readonly ISessionFactory sessionFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FieldRepository"/> class.
+        /// </summary>
+        /// <param name="sessionFactory">The session factory.</param>
         public FieldRepository(ISessionFactory sessionFactory)
         {
             this.sessionFactory = sessionFactory;
@@ -54,6 +63,29 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
                     .FirstOrDefault(predicate);
 
                 return field;
+            }
+        }
+
+        public FieldEntity CreateField(FieldEntity field)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                var transaction = session.BeginTransaction();
+                var id = session.Save(field);
+                transaction.Commit();
+                field.Id = (string)id;
+
+                return field;
+            }
+        }
+
+        public void DeleteField(Guid fieldId)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                var transaction = session.BeginTransaction();
+                session.DeleteById<FieldEntity>(fieldId.ToNonDashedString());
+                transaction.Commit();
             }
         }
     }

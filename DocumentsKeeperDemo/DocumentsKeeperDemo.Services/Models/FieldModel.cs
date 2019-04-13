@@ -56,5 +56,15 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// The collection of the field values.
 		/// </summary>
 		public IList<FieldValueModel> FieldValues { get; set; }
-	}
+
+        /// <summary>
+        /// The date of the field creation.
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// The date of the field modification.
+        /// </summary>
+        public DateTime ModifiedDate { get; set; }
+    }
 }

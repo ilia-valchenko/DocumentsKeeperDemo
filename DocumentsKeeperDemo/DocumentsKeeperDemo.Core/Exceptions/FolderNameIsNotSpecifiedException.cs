@@ -4,6 +4,7 @@ namespace DocumentsKeeperDemo.Core.Extensions
 {
     public class FolderNameIsNotSpecifiedException : Exception
     {
-        public FolderNameIsNotSpecifiedException(string message): base(message) {}
+        public FolderNameIsNotSpecifiedException(): base() { }
+        public FolderNameIsNotSpecifiedException(string message): base(message) { }
     }
 }

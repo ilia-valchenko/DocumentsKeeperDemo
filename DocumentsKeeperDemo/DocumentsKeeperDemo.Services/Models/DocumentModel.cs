@@ -71,5 +71,15 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// The upload id.
 		/// </summary>
 		public int UploadId { get; set; }
+
+        /// <summary>
+        /// The date of the document creation.
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// The date of the document modification.
+        /// </summary>
+        public DateTime ModifiedDate { get; set; }
 	}
 }

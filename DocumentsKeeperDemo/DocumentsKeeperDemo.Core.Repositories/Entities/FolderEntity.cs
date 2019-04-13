@@ -31,15 +31,5 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// The collection of the field entities.
 		/// </summary>
 		public virtual IList<FieldEntity> Fields { get; set; }
-
-		/// <summary>
-		/// The created date of the folder.
-		/// </summary>
-		public virtual DateTime CreatedDate { get; set; }
-
-		/// <summary>
-		/// The last modified date.
-		/// </summary>
-		public virtual DateTime LastModified { get; set; }
 	}
 }

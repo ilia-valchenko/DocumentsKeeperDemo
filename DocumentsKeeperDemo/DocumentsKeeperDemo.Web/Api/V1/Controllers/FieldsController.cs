@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
@@ -32,6 +34,22 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
             var liteFields = this.fieldService.GetLiteFields(folderId);
 
             return liteFields;
+        }
+
+        [HttpPost]
+        public HttpResponseMessage CreateField(FieldModel field)
+        {
+            var createdField = this.fieldService.CreateField(field);
+
+            return Request.CreateResponse(HttpStatusCode.Created, createdField);
+        }
+
+        [HttpDelete]
+        public HttpResponseMessage DeleteField(Guid id)
+        {
+            this.fieldService.DeleteField(id);
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }

@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Extensions\SessionExtension.cs" />
     <Compile Include="Infrastructure\FactorySessionFactory.cs" />
     <Compile Include="Infrastructure\IFactorySessionFactory.cs" />
     <Compile Include="Interfaces\Repositories\IDocumentRepository.cs" />
