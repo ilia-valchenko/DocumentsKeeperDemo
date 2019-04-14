@@ -12,9 +12,6 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
     /// </summary>
     public sealed class DocumentsController : ApiController
     {
-        // TODO: Move to config file.
-        private const string ServerUploadFolder = "C:\\Temp";
-
         /// <summary>
         /// The document service.
         /// </summary>

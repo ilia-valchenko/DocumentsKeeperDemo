@@ -27,6 +27,11 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// </summary>
 		public int DocumentNumber { get; set; }
 
+        /// <summary>
+        /// The name of the file.
+        /// </summary>
+        public string FileName { get; set; }
+
 		/// <summary>
 		/// The file type.
 		/// </summary>

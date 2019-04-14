@@ -7,10 +7,10 @@ namespace DocumentsKeeperDemo.Core.Enums
     /// </summary>
     public enum SystemField
     {
-        [Text("FileName")]
+        [Text("File Name")]
         FileName = 0,
 
-        [Text("FileText")]
+        [Text("File Text")]
         FileText = 1
     }
 }

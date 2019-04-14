@@ -46,7 +46,7 @@ namespace DocumentsKeeperDemo.Services.Services
             this.ValidateField(field);
 
             field.Id = Guid.NewGuid();
-            field.Name = field.DisplayName.Trim();
+            field.Name = field.DisplayName.RemoveSpaces();
 
             var fieldEntity = Mapper.Map<FieldEntity>(field);
             var createdFieldEntity = this.fieldRepository.CreateField(fieldEntity);
@@ -67,7 +67,7 @@ namespace DocumentsKeeperDemo.Services.Services
                 new FieldModel
                 {
                     Id = Guid.NewGuid(),
-                    Name = SystemField.FileName.ToStringValue().Replace(" ", string.Empty),
+                    Name = SystemField.FileName.ToStringValue().RemoveSpaces(),
                     DisplayName = SystemField.FileName.ToStringValue(),
                     DataType = FieldDataType.STRING,
                     FolderId = folderId,
@@ -76,7 +76,7 @@ namespace DocumentsKeeperDemo.Services.Services
                 new FieldModel
                 {
                     Id = Guid.NewGuid(),
-                    Name = SystemField.FileText.ToStringValue().Replace(" ", string.Empty),
+                    Name = SystemField.FileText.ToStringValue().RemoveSpaces(),
                     DisplayName = SystemField.FileText.ToStringValue(),
                     DataType = FieldDataType.STRING,
                     FolderId = folderId,

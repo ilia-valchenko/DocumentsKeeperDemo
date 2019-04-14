@@ -31,6 +31,11 @@ namespace DocumentsKeeperDemo.Web.Api.V1.ViewModels
 		/// </summary>
 		public string FileType { get; set; }
 
+        /// <summary>
+        /// The name of the file.
+        /// </summary>
+        public string FileName { get; set; }
+
 		/// <summary>
 		/// The folder.
 		/// </summary>

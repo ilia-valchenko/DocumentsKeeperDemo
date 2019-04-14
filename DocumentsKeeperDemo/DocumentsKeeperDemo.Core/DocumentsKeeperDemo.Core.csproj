@@ -55,6 +55,7 @@
     <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Exceptions\FolderNameIsNotSpecifiedException.cs" />
     <Compile Include="Extensions\GuidExtension.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Extensions\TextAttributeExtension.cs" />
     <Compile Include="Infrastructure\ApplicationLogger.cs" />
     <Compile Include="Infrastructure\Guard.cs" />

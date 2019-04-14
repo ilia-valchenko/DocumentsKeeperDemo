@@ -19,6 +19,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsKeeperDemo.Web.Uni
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentsKeeperDemo.Services.UnitTests", "DocumentsKeeperDemo.Services.UnitTests\DocumentsKeeperDemo.Services.UnitTests.csproj", "{B810BE63-0DDD-41E5-91B1-9BC063135386}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UpgradeDatabaseScripts", "UpgradeDatabaseScripts", "{9DBEE83A-51C0-458A-A8F7-6003947F9F58}"
+	ProjectSection(SolutionItems) = preProject
+		v1_CreateDocumentsTable.sql = v1_CreateDocumentsTable.sql
+		v2_CreateFoldersTable.sql = v2_CreateFoldersTable.sql
+		v3_CreateFieldsTable.sql = v3_CreateFieldsTable.sql
+		v4_CreateFieldValuesTable.sql = v4_CreateFieldValuesTable.sql
+		v5_AddFileNameColumnToDocumentsTable.sql = v5_AddFileNameColumnToDocumentsTable.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

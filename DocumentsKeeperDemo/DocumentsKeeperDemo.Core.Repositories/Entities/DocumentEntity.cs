@@ -21,6 +21,11 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// </summary>
 		public virtual int DocumentNumber { get; set; }
 
+        /// <summary>
+        /// The name of the file.
+        /// </summary>
+        public virtual string FileName { get; set; }
+
 		/// <summary>
 		/// The document file type.
 		/// </summary>

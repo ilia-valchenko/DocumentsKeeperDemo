@@ -18,6 +18,7 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 			this.Id(x => x.Id).Column("DOCUMENT_GUID");
 
 			this.Map(x => x.DocumentNumber).Column("DOCUMENT_NUMBER");
+            this.Map(x => x.FileName).Column("FILENAME");
 			this.Map(x => x.FileType).Column("FILE_TYPE");
 			this.Map(x => x.CreatedDate).Column("CREATED_DATE");
 			this.Map(x => x.TextNasPath).Column("TEXT_NAS_PATH");
