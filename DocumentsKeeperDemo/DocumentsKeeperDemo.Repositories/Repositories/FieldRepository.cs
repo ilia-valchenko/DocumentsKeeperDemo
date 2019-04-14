@@ -70,12 +70,14 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var transaction = session.BeginTransaction();
-                var id = session.Save(field);
-                transaction.Commit();
-                field.Id = (string)id;
+                using (var transaction = session.BeginTransaction())
+                {
+                    var id = session.Save(field);
+                    transaction.Commit();
+                    field.Id = (string)id;
 
-                return field;
+                    return field;
+                }
             }
         }
 
@@ -83,9 +85,11 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var transaction = session.BeginTransaction();
-                session.DeleteById<FieldEntity>(fieldId.ToNonDashedString());
-                transaction.Commit();
+                using (var transaction = session.BeginTransaction())
+                {
+                    session.DeleteById<FieldEntity>(fieldId.ToNonDashedString());
+                    transaction.Commit();
+                }
             }
         }
     }

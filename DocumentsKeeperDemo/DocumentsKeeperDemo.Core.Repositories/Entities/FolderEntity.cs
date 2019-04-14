@@ -13,8 +13,8 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		public FolderEntity()
 		{
 			this.Documents = new List<DocumentEntity>();
-			this.Fields = new List<FieldEntity>();
-		}
+            this.Fields = new List<FieldEntity>();
+        }
 
 		/// <summary>
 		/// The name of the folder.
@@ -26,9 +26,9 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// </summary>
 		public virtual IEnumerable<DocumentEntity> Documents { get; set; }
 
-		/// <summary>
-		/// The collection of the field entities.
-		/// </summary>
-		public virtual IEnumerable<FieldEntity> Fields { get; set; }
-	}
+        /// <summary>
+        /// The collection of the field entities.
+        /// </summary>
+        public virtual IEnumerable<FieldEntity> Fields { get; set; }
+    }
 }

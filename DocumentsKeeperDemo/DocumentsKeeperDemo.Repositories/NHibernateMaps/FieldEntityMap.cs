@@ -18,7 +18,7 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 			this.Id(x => x.Id).Column("FIELD_GUID");
 
             this.Map(x => x.Name).Column("NAME");
-            this.Map(x => x.FolderId).Column("FOLDER_GUID");
+            //this.Map(x => x.FolderId).Column("FOLDER_GUID");
 			this.Map(x => x.DisplayName).Column("DISPLAY_NAME");
 			this.Map(x => x.DataType).Column("DATA_TYPE");
 			this.Map(x => x.IsMultipleValue).Column("IS_MULTIPLE_VALUE");
@@ -33,8 +33,8 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
             //    .Cascade.All();
 
             References(x => x.Folder)
-                .Column("FOLDER_GUID")
-                .Cascade.All();
+                .Column("FOLDER_GUID");
+            //    .Cascade.All();
         }
 	}
 }

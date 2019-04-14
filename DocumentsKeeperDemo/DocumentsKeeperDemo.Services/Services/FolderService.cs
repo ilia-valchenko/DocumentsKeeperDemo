@@ -121,7 +121,13 @@ namespace DocumentsKeeperDemo.Services.Services
                 LastModified = DateTime.Now
             };
 
-            //folderModel.Fields = this.fieldService.CreateSystemFieldsForFolder(folderModel.Id);
+            folderModel.Fields = this.fieldService.CreateSystemFieldsForFolder(folderModel.Id);
+
+            // Associate the fields with the folder.
+            foreach (var field in folderModel.Fields)
+            {
+                field.Folder = folderModel;
+            }
 
             var folderEntity = Mapper.Map<FolderEntity>(folderModel);
             var createdFolderEntity = this.folderRepository.CreateFolder(folderEntity);

@@ -141,12 +141,11 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                // transaction start 
-                var result = session.Save(documentEntity); 
-                
-                //session.Flush();
-
-                // transaction commit
+                using (var transaction = session.BeginTransaction())
+                {
+                    var result = session.Save(documentEntity);
+                    transaction.Commit();
+                }
             }
         }
 

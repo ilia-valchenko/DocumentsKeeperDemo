@@ -125,11 +125,19 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var transaction = session.BeginTransaction();
-                var result = session.Save(folderEntity);
-                transaction.Commit();
+                using (var transaction = session.BeginTransaction())
+                {
+                    var result = session.Save(folderEntity);
 
-                return folderEntity;
+                    foreach (var field in folderEntity.Fields)
+                    {
+                        session.Save(field);
+                    }
+
+                    transaction.Commit();
+
+                    return folderEntity;
+                }
             }
         }
 
@@ -137,9 +145,11 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var transaction = session.BeginTransaction();
-                session.DeleteById<FolderEntity>(folderId.ToNonDashedString());
-                transaction.Commit();
+                using (var transaction = session.BeginTransaction())
+                {
+                    session.DeleteById<FolderEntity>(folderId.ToNonDashedString());
+                    transaction.Commit();
+                }
             }
         }
     }

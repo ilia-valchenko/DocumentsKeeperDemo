@@ -44,6 +44,10 @@ namespace DocumentsKeeperDemo.Services.Registrars
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
                 .ForMember(dest => dest.FolderId, opt => opt.MapFrom(x => x.FolderId.ToNonDashedString()));
 
+            this.CreateMap<FieldModel, FieldLiteEntity>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
+                .ForMember(dest => dest.FolderId, opt => opt.MapFrom(x => x.FolderId.ToNonDashedString()));
+
             // Field value
             this.CreateMap<FieldValueEntity, FieldValueModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)));
