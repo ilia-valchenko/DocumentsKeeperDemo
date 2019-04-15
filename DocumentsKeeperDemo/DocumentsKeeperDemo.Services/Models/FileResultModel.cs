@@ -15,5 +15,6 @@ namespace DocumentsKeeperDemo.Services.Models
         public string DownloadLink { get; set; }
         public IEnumerable<string> ContentTypes { get; set; }
         public IEnumerable<string> Names { get; set; }
+        public IEnumerable<long?> FileSizes { get; set; }
     }
 }

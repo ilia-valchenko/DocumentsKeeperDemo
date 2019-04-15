@@ -26,6 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UpgradeDatabaseScripts", "U
 		v3_CreateFieldsTable.sql = v3_CreateFieldsTable.sql
 		v4_CreateFieldValuesTable.sql = v4_CreateFieldValuesTable.sql
 		v5_AddFileNameColumnToDocumentsTable.sql = v5_AddFileNameColumnToDocumentsTable.sql
+		v_6_MakeFileSizeColumnNullable.sql = v_6_MakeFileSizeColumnNullable.sql
+		v_7_MakeFamilyIdColumnNullable.sql = v_7_MakeFamilyIdColumnNullable.sql
+		v_8_MakeUploadIdColumnNullable.sql = v_8_MakeUploadIdColumnNullable.sql
 	EndProjectSection
 EndProject
 Global

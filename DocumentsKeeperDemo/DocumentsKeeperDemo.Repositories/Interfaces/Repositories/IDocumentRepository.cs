@@ -54,11 +54,11 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
             Expression<Func<DocumentEntity, bool>> predicate);
 
         /// <summary>
-        /// Inserts document. 
+        /// Inserts documents.
         /// </summary>
-        /// <param name="documentEntity">The document entity.</param>
-        void InsertDocument(DocumentEntity documentEntity);
-
+        /// <param name="documents">The collection of documents that have to be inserted.</param>
+        IEnumerable<DocumentEntity> InsertDocuments(IEnumerable<DocumentEntity> documents);
+ 
         /// <summary>
         /// Gets the collection of the document lite entities by using the predicate.
         /// </summary>

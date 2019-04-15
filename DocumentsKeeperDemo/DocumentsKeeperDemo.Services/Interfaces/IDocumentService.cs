@@ -41,14 +41,7 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// </returns>
 	    DocumentModel GetLiteDocument(Guid documentId);
 
-		/// <summary>
-		/// Inserts new document.
-		/// </summary>
-		/// <param name="documentModel">The document model.</param>
-		/// <returns>
-		/// The guid of the created document.
-		/// </returns>
-		Guid InsertDocument(DocumentModel documentModel);
+	    IEnumerable<DocumentModel> InsertDocuments(Guid folderId, FileResultModel fileResult);
 
         /// <summary>
         /// Gets all lite documents for the specified folder.

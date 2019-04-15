@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
-using System.IO;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
@@ -44,39 +43,9 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
             this.fileParser = fileParser;
 		}
 
-        ///// <summary>
-        ///// Upload single file on the server.
-        ///// </summary>
-        //[HttpPost]
-        //public async Task UploadSingleFile(Guid folderId)
-        //{
-        //          // TODO: Move folder path to config file.
-        //          //var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
-        //          var streamProvider = new MultipartFormDataStreamProvider(
-        //              "C:/Users/iValc/Downloads/git/DocumentsKeeperDemo/DocumentsKeeperDemo/DocumentsKeeperDemo.Web/App_Data/UploadedFiles");
-        //          await this.Request.Content.ReadAsMultipartAsync(streamProvider);
-
-        //          var document = this.fileParser.ParseFile(new FileResultModel
-        //          {
-        //              FileNames = streamProvider.FileData.Select(entry => entry.LocalFileName),
-        //              Names = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.FileName),
-        //              ContentTypes = streamProvider.FileData.Select(entry => entry.Headers.ContentType.MediaType),
-        //              Description = streamProvider.FormData["description"],
-        //              CreatedTimestamp = DateTime.UtcNow,
-        //              UpdatedTimestamp = DateTime.UtcNow,
-        //              DownloadLink = "TODO, will implement when file is persisited"
-        //          });
-
-        //          document.Folder = new FolderModel { Id = folderId };
-
-        //          this.documentService.InsertDocument(document);
-        //}
-
         [HttpPost]
-        public async Task<FileResultModel> /*string*/ UploadFile(/*HttpPostedFile file*/)
+        public async Task<FileResultModel> UploadFile(Guid folderId)
         {
-
-
             var streamProvider = new MultipartFormDataStreamProvider(ServerUploadFolder);
             await Request.Content.ReadAsMultipartAsync(streamProvider);
 
@@ -88,8 +57,11 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
                 Description = streamProvider.FormData["description"],
                 CreatedTimestamp = DateTime.UtcNow,
                 UpdatedTimestamp = DateTime.UtcNow,
-                DownloadLink = "TODO, will implement when file is persisited"
+                DownloadLink = "TODO, will implement when file is persisited",
+                FileSizes = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.Size)
             };
+
+            this.documentService.InsertDocuments(folderId, fileResult);
 
             return fileResult;
 

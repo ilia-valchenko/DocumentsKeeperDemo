@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DocumentsKeeperDemo.Core.Repositories.Entities
 {
@@ -19,7 +18,7 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// <summary>
 		/// The document number.
 		/// </summary>
-		public virtual int DocumentNumber { get; set; }
+		public virtual int? DocumentNumber { get; set; }
 
         /// <summary>
         /// The name of the file.
@@ -30,11 +29,6 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// The document file type.
 		/// </summary>
 		public virtual string FileType { get; set; }
-
-		/// <summary>
-		/// The created date.
-		/// </summary>
-		public virtual DateTime CreatedDate { get; set; }
 
 		/// <summary>
 		/// The folder entity.

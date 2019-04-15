@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
+using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Extensions;
 using DocumentsKeeperDemo.Core.Infrastructure;
 using DocumentsKeeperDemo.Repositories.Interfaces.Repositories;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
+using NHibernate.Util;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
@@ -108,22 +111,38 @@ namespace DocumentsKeeperDemo.Services.Services
             return liteDocumentModels;
         }
 
-        /// <summary>
-        /// Inserts new document model.
-        /// </summary>
-        /// <param name="documentModel">The document model.</param>
-        /// <returns>
-        /// The guid of the inserted document model.
-        /// </returns>
-        public Guid InsertDocument(DocumentModel documentModel)
-		{
-            Guard.ArgumentNotNull(documentModel, nameof(documentModel));
+	    public IEnumerable<DocumentModel> InsertDocuments(Guid folderId, FileResultModel fileResult)
+	    {
+	        Guard.ArgumentNotNull(fileResult, nameof(fileResult));
 
-            documentModel.Id = Guid.NewGuid();
-            var documentEntity = Mapper.Map<DocumentEntity>(documentModel);
-            this.documentRepository.InsertDocument(documentEntity);
+            var documents = new List<DocumentModel>();
 
-            return documentModel.Id;
-		}
-	}
+	        if (EnumerableExtensions.Any(fileResult.Names))
+	        {
+	            var names = fileResult.Names.ToArray();
+	            var fileNames = fileResult.FileNames.ToArray();
+	            var contentTypes = fileResult.ContentTypes.ToArray();
+
+                for (var i = 0; i < names.Length; i++)
+	            {
+	                documents.Add(new DocumentModel
+	                {
+                        Id = Guid.NewGuid(),
+	                    Folder = new FolderModel { Id = folderId },
+                        FolderId = folderId,
+                        CreatedDate = DateTime.Now,
+                        ModifiedDate = DateTime.Now,
+                        FileName = names[i],
+                        TextNasPath = fileNames[i],
+                        FileType = contentTypes[i].FromTextAttributeStringToEnumValue<FileType>()
+                    });
+	            }
+	        }
+
+	        var documentEntities = Mapper.Map<IEnumerable<DocumentEntity>>(documents);
+	        this.documentRepository.InsertDocuments(documentEntities);
+
+	        return documents;
+	    }
+    }
 }

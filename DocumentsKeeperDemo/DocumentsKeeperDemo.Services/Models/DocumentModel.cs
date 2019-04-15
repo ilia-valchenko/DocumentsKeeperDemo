@@ -25,7 +25,7 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// <summary>
 		/// The document's number.
 		/// </summary>
-		public int DocumentNumber { get; set; }
+		public int? DocumentNumber { get; set; }
 
         /// <summary>
         /// The name of the file.
@@ -36,11 +36,6 @@ namespace DocumentsKeeperDemo.Services.Models
 		/// The file type.
 		/// </summary>
 		public FileType FileType { get; set; }
-
-		/// <summary>
-		/// The created date.
-		/// </summary>
-		public DateTime CreatedDate { get; set; }
 
 		/// <summary>
 		/// The folder.
@@ -80,7 +75,7 @@ namespace DocumentsKeeperDemo.Services.Models
         /// <summary>
         /// The date of the document creation.
         /// </summary>
-        public DateTime CreateDate { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// The date of the document modification.

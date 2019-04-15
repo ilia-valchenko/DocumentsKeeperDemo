@@ -22,6 +22,7 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
             this.Map(x => x.FileName).Column("FILENAME");
             this.Map(x => x.FileType).Column("FILE_TYPE");
             this.Map(x => x.CreatedDate).Column("CREATED_DATE");
+            this.Map(x => x.ModifiedDate).Column("MODIFIED_DATE");
             this.Map(x => x.TextNasPath).Column("TEXT_NAS_PATH");
             this.Map(x => x.FileSize).Column("FILE_SIZE");
             this.Map(x => x.FamilyId).Column("FAMILY_ID");

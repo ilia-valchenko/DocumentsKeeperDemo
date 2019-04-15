@@ -26,7 +26,7 @@ namespace DocumentsKeeperDemo.Repositories.Infrastructure
         //.Mappings(m => m.FluentMappings.AddFromAssemblyOf<DocumentEntityMap>())
         //.BuildSessionFactory();
 
-        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\iValc\Downloads\git\DocumentsKeeperDemo\DocumentsKeeperDemo\DocumentsKeeperDemo.Web\App_Data\Database\DocumentsKeeperDatabase.mdf;Integrated Security=True").ShowSql())
+        .Database(MsSqlConfiguration.MsSql2012.ConnectionString(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\git\master-documents-keeper-demo\DocumentsKeeperDemo\DocumentsKeeperDemo\DocumentsKeeperDemo.Web\App_Data\Database\DocumentsKeeperDatabase.mdf;Integrated Security=True").ShowSql())
         .Mappings(m => m.FluentMappings.AddFromAssemblyOf<DocumentEntityMap>())  
         .BuildSessionFactory();
     }
