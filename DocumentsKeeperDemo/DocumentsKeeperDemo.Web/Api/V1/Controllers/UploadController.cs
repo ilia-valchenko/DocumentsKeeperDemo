@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
+using System.Collections.Generic;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
@@ -60,6 +61,17 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
                 DownloadLink = "TODO, will implement when file is persisited",
                 FileSizes = streamProvider.FileData.Select(entry => entry.Headers.ContentDisposition.Size)
             };
+
+            // test
+            // TODO: Read the file content asynchronously.
+            var list = new List<string>();
+
+            foreach(var fileName in fileResult.FileNames)
+            {
+                string text = System.IO.File.ReadAllText(fileName);
+                list.Add(text);
+            }
+            // end of test
 
             this.documentService.InsertDocuments(folderId, fileResult);
 
