@@ -65,5 +65,10 @@ namespace DocumentsKeeperDemo.Web.Api.V1.ViewModels
 		/// The upload id.
 		/// </summary>
 		public int UploadId { get; set; }
+
+        /// <summary>
+        /// The content of the document.
+        /// </summary>
+        public string DocumentText { get; set; }
 	}
 }

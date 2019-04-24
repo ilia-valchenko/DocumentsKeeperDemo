@@ -59,5 +59,10 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
 		/// The upload identifier.
 		/// </summary>
 		public virtual int UploadId { get; set; }
-	}
+
+        /// <summary>
+        /// The content of the document.
+        /// </summary>
+        public virtual string DocumentText { get; set; }
+    }
 }

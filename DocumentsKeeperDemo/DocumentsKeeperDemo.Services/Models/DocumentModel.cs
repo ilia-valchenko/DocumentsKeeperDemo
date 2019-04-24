@@ -81,5 +81,10 @@ namespace DocumentsKeeperDemo.Services.Models
         /// The date of the document modification.
         /// </summary>
         public DateTime ModifiedDate { get; set; }
-	}
+
+        /// <summary>
+        /// The document content.
+        /// </summary>
+        public string DocumentText { get; set; }
+    }
 }

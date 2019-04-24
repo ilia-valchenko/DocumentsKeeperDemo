@@ -49,7 +49,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// </returns>
         [HttpGet]
         public DocumentViewModel GetDocument(Guid id)
-        {
+       {
             var documentModel = this.documentService.GetDocument(id);
             var documentViewModel = Mapper.Map<DocumentViewModel>(documentModel);
             return documentViewModel;

@@ -10,6 +10,7 @@ using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using NHibernate.Util;
+using System.Threading.Tasks;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
@@ -117,6 +118,7 @@ namespace DocumentsKeeperDemo.Services.Services
 
             var documents = new List<DocumentModel>();
 
+            // TODO: Use Parallel library.
 	        if (EnumerableExtensions.Any(fileResult.Names))
 	        {
 	            var names = fileResult.Names.ToArray();
@@ -125,21 +127,24 @@ namespace DocumentsKeeperDemo.Services.Services
 
                 for (var i = 0; i < names.Length; i++)
 	            {
-	                documents.Add(new DocumentModel
-	                {
+                    string documentText = System.IO.File.ReadAllText(fileNames[i]);
+
+                    documents.Add(new DocumentModel
+                    {
                         Id = Guid.NewGuid(),
-	                    Folder = new FolderModel { Id = folderId },
+                        Folder = new FolderModel { Id = folderId },
                         FolderId = folderId,
                         CreatedDate = DateTime.Now,
                         ModifiedDate = DateTime.Now,
                         FileName = names[i],
                         TextNasPath = fileNames[i],
-                        FileType = contentTypes[i].FromTextAttributeStringToEnumValue<FileType>()
+                        FileType = contentTypes[i].FromTextAttributeStringToEnumValue<FileType>(),
+                        DocumentText = documentText
                     });
 	            }
 	        }
 
-	        var documentEntities = Mapper.Map<IEnumerable<DocumentEntity>>(documents);
+            var documentEntities = Mapper.Map<IEnumerable<DocumentEntity>>(documents);
 	        this.documentRepository.InsertDocuments(documentEntities);
 
 	        return documents;

@@ -79,11 +79,11 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
                 var documentEntity = session.Query<DocumentEntity>()
                     .FirstOrDefault(predicate);
 
-                if (documentEntity != null)
-                {
-                    NHibernateUtil.Initialize(documentEntity.Folder);
-                    NHibernateUtil.Initialize(documentEntity.FieldValues);
-                }
+                //if (documentEntity != null)
+                //{
+                //    NHibernateUtil.Initialize(documentEntity.Folder);
+                //    NHibernateUtil.Initialize(documentEntity.FieldValues);
+                //}
 
                 return documentEntity;
             }
