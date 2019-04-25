@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
+using DocumentsKeeperDemo.Repositories.Extensions;
 using DocumentsKeeperDemo.Repositories.Interfaces.Repositories;
 using NHibernate;
 using NHibernate.Linq;
@@ -161,6 +162,21 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
                     .ToList();
 
                 return documentLiteEntities;
+            }
+        }
+
+        /// <summary>
+        /// Removes document by document id.
+        /// </summary>
+        public void DeleteDocument(string documentId)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    session.DeleteById<DocumentEntity>(documentId);
+                    transaction.Commit();
+                }
             }
         }
     }

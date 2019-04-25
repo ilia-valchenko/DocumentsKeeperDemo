@@ -59,6 +59,6 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// Removes folder by id.
         /// </summary>
         /// <param name="folderId">The id of the folder that have to be removed.</param>
-        void DeleteFolder(Guid folderId);
+        void DeleteFolder(string folderId);
     }
 }

@@ -5,16 +5,16 @@ using DocumentsKeeperDemo.Core.Repositories.Entities;
 
 namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
 {
-	/// <summary>
-	/// The document repository.
-	/// </summary>
-	public interface IDocumentRepository
-	{
-		/// <summary>
-		/// Gets all document entities.
-		/// </summary>
-		/// <returns></returns>
-		IEnumerable<DocumentEntity> GetAllDocumentEntities();
+    /// <summary>
+    /// The document repository.
+    /// </summary>
+    public interface IDocumentRepository
+    {
+        /// <summary>
+        /// Gets all document entities.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<DocumentEntity> GetAllDocumentEntities();
 
         /// <summary>
         /// Gets all document lite entities.
@@ -22,16 +22,16 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns the collection of document lite entities.
         /// </returns>
-	    IEnumerable<DocumentLiteEntity> GetAllDocumentLiteEntities();
+        IEnumerable<DocumentLiteEntity> GetAllDocumentLiteEntities();
 
         /// <summary>
-		/// Gets the instance of the <see cref="DocumentEntity"/> class.
-		/// </summary>
-		/// <param name="predicate">The predicate.</param>
-		/// <returns>
-		/// Returns the instance of the <see cref="DocumentEntity"/> class.
-		/// </returns>
-		DocumentEntity GetDocumentEntity(Expression<Func<DocumentEntity, bool>> predicate);
+        /// Gets the instance of the <see cref="DocumentEntity"/> class.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>
+        /// Returns the instance of the <see cref="DocumentEntity"/> class.
+        /// </returns>
+        DocumentEntity GetDocumentEntity(Expression<Func<DocumentEntity, bool>> predicate);
 
         /// <summary>
         /// Gets document lite entity by predicate.
@@ -40,17 +40,17 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <returns>
         /// Returns document lite entity.
         /// </returns>
-	    DocumentLiteEntity GetDocumentLiteEntity(
+        DocumentLiteEntity GetDocumentLiteEntity(
             Expression<Func<DocumentLiteEntity, bool>> predicate);
 
-		/// <summary>
-		/// Gets the collection of instances of the <see cref="DocumentEntity"/> class.
-		/// </summary>
-		/// <param name="predicate">The predicate.</param>
-		/// <returns>
-		/// The collection of instances of the <see cref="DocumentEntity"/> class.
-		/// </returns>
-		IEnumerable<DocumentEntity> GetDocumentEntities(
+        /// <summary>
+        /// Gets the collection of instances of the <see cref="DocumentEntity"/> class.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>
+        /// The collection of instances of the <see cref="DocumentEntity"/> class.
+        /// </returns>
+        IEnumerable<DocumentEntity> GetDocumentEntities(
             Expression<Func<DocumentEntity, bool>> predicate);
 
         /// <summary>
@@ -65,5 +65,11 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <param name="predicate">The predicate.</param>
         IEnumerable<DocumentLiteEntity> GetDocumentLiteEntities(
             Expression<Func<DocumentLiteEntity, bool>> predicate);
-	}
+
+        /// <summary>
+        /// Removes document by document id.
+        /// </summary>
+        /// <param name="documentId">The id of the document that have to be removed.</param>
+        void DeleteDocument(string documentId);
+    }
 }

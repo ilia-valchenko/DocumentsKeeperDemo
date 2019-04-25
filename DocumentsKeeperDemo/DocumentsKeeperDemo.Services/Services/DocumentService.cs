@@ -115,6 +115,20 @@ namespace DocumentsKeeperDemo.Services.Services
             return liteDocumentModels;
         }
 
+        /// <summary>
+        /// Removes document by document id.
+        /// </summary>
+        /// <param name="documentId">The id of the document that have to be deleted.</param>
+        public void DeleteDocument(Guid documentId)
+        {
+            if (documentId == Guid.Empty)
+            {
+                return;
+            }
+
+            this.documentRepository.DeleteDocument(documentId.ToNonDashedString());
+        }
+
         public IEnumerable<DocumentModel> InsertDocuments(Guid folderId, FileResultModel fileResult)
         {
             Guard.ArgumentNotNull(fileResult, nameof(fileResult));

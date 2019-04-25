@@ -136,9 +136,17 @@ namespace DocumentsKeeperDemo.Services.Services
             return createdFolderModel;
         }
 
+        /// <summary>
+        /// Removes folder by folder id.
+        /// </summary>
         public void DeleteFolder(Guid folderId)
         {
-            this.folderRepository.DeleteFolder(folderId);
+            if (folderId == Guid.Empty)
+            {
+                return;
+            }
+
+            this.folderRepository.DeleteFolder(folderId.ToNonDashedString());
         }
     }
 }

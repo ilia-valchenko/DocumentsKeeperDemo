@@ -7,7 +7,6 @@ using DocumentsKeeperDemo.Repositories.Interfaces.Repositories;
 using NHibernate;
 using NHibernate.Linq;
 using DocumentsKeeperDemo.Repositories.Extensions;
-using DocumentsKeeperDemo.Core.Extensions;
 
 namespace DocumentsKeeperDemo.Repositories.Repositories
 {
@@ -141,13 +140,16 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
             }
         }
 
-        public void DeleteFolder(Guid folderId)
+        /// <summary>
+        /// Removes folder by folder id.
+        /// </summary>
+        public void DeleteFolder(string folderId)
         {
             using (var session = this.sessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
-                    session.DeleteById<FolderEntity>(folderId.ToNonDashedString());
+                    session.DeleteById<FolderEntity>(folderId);
                     transaction.Commit();
                 }
             }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
@@ -81,6 +83,17 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
                 .Map<IEnumerable<DocumentViewModel>>(liteDocumentModels);
 
             return liteDocumentsViewModels;
+        }
+
+        /// <summary>
+        /// Deletes document by document id.
+        /// </summary>
+        /// <param name="id">The id of the document that have to be removed.</param>
+        [HttpDelete]
+        public HttpResponseMessage DeleteDocument(Guid id)
+        {
+            this.documentService.DeleteDocument(id);
+            return Request.CreateResponse(HttpStatusCode.NoContent);
         }
     }
 }
