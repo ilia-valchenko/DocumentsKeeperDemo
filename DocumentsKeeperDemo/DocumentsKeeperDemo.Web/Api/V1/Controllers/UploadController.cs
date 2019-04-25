@@ -9,11 +9,11 @@ using System.Collections.Generic;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
-	/// <summary>
-	/// The upload controller.
-	/// </summary>
-	public class UploadController : ApiController
-	{
+    /// <summary>
+    /// The upload controller.
+    /// </summary>
+    public class UploadController : ApiController
+    {
         // TODO: Move it to the Web.config file.
 
         /// <summary>
@@ -31,18 +31,18 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// </summary>
         private readonly IFileParseService fileParser;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="UploadController"/> class.
-		/// </summary>
-		/// <param name="documentService">The document service.</param>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UploadController"/> class.
+        /// </summary>
+        /// <param name="documentService">The document service.</param>
         /// <param name="fileParser">The file parser.</param>
-		public UploadController(
+        public UploadController(
             IDocumentService documentService,
             IFileParseService fileParser)
-		{
-			this.documentService = documentService;
+        {
+            this.documentService = documentService;
             this.fileParser = fileParser;
-		}
+        }
 
         [HttpPost]
         public async Task<FileResultModel> UploadFile(Guid folderId)

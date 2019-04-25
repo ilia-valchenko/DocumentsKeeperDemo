@@ -3,6 +3,9 @@ using FluentNHibernate.Mapping;
 
 namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 {
+    /// <summary>
+    /// The field lite entity.
+    /// </summary>
     public sealed class FieldLiteEntityMap : ClassMap<FieldLiteEntity>
     {
         /// <summary>

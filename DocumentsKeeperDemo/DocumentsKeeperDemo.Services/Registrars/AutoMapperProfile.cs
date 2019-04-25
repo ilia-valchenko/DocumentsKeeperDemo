@@ -66,6 +66,10 @@ namespace DocumentsKeeperDemo.Services.Registrars
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
                 .ForMember(dest => dest.ModifiedDate, opt => opt.MapFrom(x => x.LastModified));
 
+		    this.CreateMap<FolderModel, FolderLiteEntity>()
+		        .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
+		        .ForMember(dest => dest.ModifiedDate, opt => opt.MapFrom(x => x.LastModified));
+
             this.CreateMap<FolderLiteEntity, FolderModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
                 .ForMember(dest => dest.LastModified, opt => opt.MapFrom(x => x.ModifiedDate));

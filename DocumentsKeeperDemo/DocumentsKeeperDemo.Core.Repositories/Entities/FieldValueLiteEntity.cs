@@ -9,9 +9,9 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
     public class FieldValueLiteEntity : BaseDatabaseEntity
     {
         /// <summary>
-		/// The document id that the field value belong to.
-		/// </summary>
-		public virtual string DocumentId { get; set; }
+        /// The document id that the field value belong to.
+        /// </summary>
+        public virtual string DocumentId { get; set; }
 
         /// <summary>
         /// The field id that the field value belong to.

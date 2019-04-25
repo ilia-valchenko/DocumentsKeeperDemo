@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Extensions;
@@ -14,50 +15,52 @@ using System.Threading.Tasks;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
-	/// <summary>
-	/// The document service.
-	/// </summary>
-	public sealed class DocumentService : IDocumentService
-	{
-		/// <summary>
-		/// The document repository.
-		/// </summary>
-		private readonly IDocumentRepository documentRepository;
+    /// <summary>
+    /// The document service.
+    /// </summary>
+    public sealed class DocumentService : IDocumentService
+    {
+        private const string DefaultFileName = "Unknown";
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DocumentService"/> class.
-		/// </summary>
-		/// <param name="documentRepository">The document repository.</param>
-		public DocumentService(IDocumentRepository documentRepository)
-		{
-			this.documentRepository = documentRepository;
-		}
+        /// <summary>
+        /// The document repository.
+        /// </summary>
+        private readonly IDocumentRepository documentRepository;
 
-		/// <summary>
-		/// Gets all document models.
-		/// </summary>
-		/// <returns></returns>
-		public IEnumerable<DocumentModel> GetAllDocuments()
-		{
-			var documentEntities = this.documentRepository.GetAllDocumentEntities();
-			var documentModels = Mapper.Map<IEnumerable<DocumentModel>>(documentEntities);
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DocumentService"/> class.
+        /// </summary>
+        /// <param name="documentRepository">The document repository.</param>
+        public DocumentService(IDocumentRepository documentRepository)
+        {
+            this.documentRepository = documentRepository;
+        }
 
-			return documentModels;
-		}
+        /// <summary>
+        /// Gets all document models.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<DocumentModel> GetAllDocuments()
+        {
+            var documentEntities = this.documentRepository.GetAllDocumentEntities();
+            var documentModels = Mapper.Map<IEnumerable<DocumentModel>>(documentEntities);
 
-	    /// <summary>
-	    /// Gets all lite document models.
-	    /// </summary>
-	    /// <returns>
-	    /// Returns the collection of document lite models.
-	    /// </returns>
-	    public IEnumerable<DocumentModel> GetAllLiteDocuments()
-	    {
-	        var documentLiteEntities = this.documentRepository.GetAllDocumentLiteEntities();
-	        var documentLiteModels = Mapper.Map<IEnumerable<DocumentModel>>(documentLiteEntities);
+            return documentModels;
+        }
 
-	        return documentLiteModels;
-	    }
+        /// <summary>
+        /// Gets all lite document models.
+        /// </summary>
+        /// <returns>
+        /// Returns the collection of document lite models.
+        /// </returns>
+        public IEnumerable<DocumentModel> GetAllLiteDocuments()
+        {
+            var documentLiteEntities = this.documentRepository.GetAllDocumentLiteEntities();
+            var documentLiteModels = Mapper.Map<IEnumerable<DocumentModel>>(documentLiteEntities);
+
+            return documentLiteModels;
+        }
 
         /// <summary>
         /// Gets the document by id.
@@ -67,30 +70,30 @@ namespace DocumentsKeeperDemo.Services.Services
         /// The document model.
         /// </returns>
         public DocumentModel GetDocument(Guid documentId)
-		{
+        {
             Guard.NotEmptyGuid(documentId, nameof(documentId));
 
-			var documentEntity = this.documentRepository.GetDocumentEntity(d => d.Id == documentId.ToNonDashedString());
-			var documentModel = Mapper.Map<DocumentModel>(documentEntity);
+            var documentEntity = this.documentRepository.GetDocumentEntity(d => d.Id == documentId.ToNonDashedString());
+            var documentModel = Mapper.Map<DocumentModel>(documentEntity);
 
-			return documentModel;
-		}
+            return documentModel;
+        }
 
-	    /// <summary>
-	    /// Gets document lite model by id.
-	    /// </summary>
-	    /// <param name="documentId">The document id.</param>
-	    /// <returns>
-	    /// Returns document lite model.
-	    /// </returns>
-	    public DocumentModel GetLiteDocument(Guid documentId)
-	    {
-	        Guard.NotEmptyGuid(documentId, nameof(documentId));
+        /// <summary>
+        /// Gets document lite model by id.
+        /// </summary>
+        /// <param name="documentId">The document id.</param>
+        /// <returns>
+        /// Returns document lite model.
+        /// </returns>
+        public DocumentModel GetLiteDocument(Guid documentId)
+        {
+            Guard.NotEmptyGuid(documentId, nameof(documentId));
 
-	        var documentLiteEntity = this.documentRepository.GetDocumentLiteEntity(d => d.Id == documentId.ToNonDashedString());
-	        var documentLiteModel = Mapper.Map<DocumentModel>(documentLiteEntity);
+            var documentLiteEntity = this.documentRepository.GetDocumentLiteEntity(d => d.Id == documentId.ToNonDashedString());
+            var documentLiteModel = Mapper.Map<DocumentModel>(documentLiteEntity);
 
-	        return documentLiteModel;
+            return documentLiteModel;
         }
 
         /// <summary>
@@ -112,21 +115,21 @@ namespace DocumentsKeeperDemo.Services.Services
             return liteDocumentModels;
         }
 
-	    public IEnumerable<DocumentModel> InsertDocuments(Guid folderId, FileResultModel fileResult)
-	    {
-	        Guard.ArgumentNotNull(fileResult, nameof(fileResult));
+        public IEnumerable<DocumentModel> InsertDocuments(Guid folderId, FileResultModel fileResult)
+        {
+            Guard.ArgumentNotNull(fileResult, nameof(fileResult));
 
             var documents = new List<DocumentModel>();
 
             // TODO: Use Parallel library.
-	        if (EnumerableExtensions.Any(fileResult.Names))
-	        {
-	            var names = fileResult.Names.ToArray();
-	            var fileNames = fileResult.FileNames.ToArray();
-	            var contentTypes = fileResult.ContentTypes.ToArray();
+            if (EnumerableExtensions.Any(fileResult.Names))
+            {
+                var names = fileResult.Names.Select(this.RemoveSpecialCharactersFromFileName).ToArray();
+                var fileNames = fileResult.FileNames.ToArray();
+                var contentTypes = fileResult.ContentTypes.ToArray();
 
                 for (var i = 0; i < names.Length; i++)
-	            {
+                {
                     string documentText = System.IO.File.ReadAllText(fileNames[i]);
 
                     documents.Add(new DocumentModel
@@ -141,13 +144,23 @@ namespace DocumentsKeeperDemo.Services.Services
                         FileType = contentTypes[i].FromTextAttributeStringToEnumValue<FileType>(),
                         DocumentText = documentText
                     });
-	            }
-	        }
+                }
+            }
 
             var documentEntities = Mapper.Map<IEnumerable<DocumentEntity>>(documents);
-	        this.documentRepository.InsertDocuments(documentEntities);
+            this.documentRepository.InsertDocuments(documentEntities);
 
-	        return documents;
-	    }
+            return documents;
+        }
+
+        private string RemoveSpecialCharactersFromFileName(string fileName)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return DefaultFileName;
+            }
+
+            return fileName.Replace("\"", "");
+        }
     }
 }

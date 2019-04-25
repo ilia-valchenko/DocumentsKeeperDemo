@@ -3,29 +3,29 @@ using FluentNHibernate.Mapping;
 
 namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
 {
-	/// <summary>
-	/// The document entity map.
-	/// </summary>
-	public sealed class DocumentEntityMap : ClassMap<DocumentEntity>
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DocumentEntityMap"/> class.
-		/// </summary>
-		public DocumentEntityMap()
-		{
-			this.Table("DOCUMENTS");
+    /// <summary>
+    /// The document entity map.
+    /// </summary>
+    public sealed class DocumentEntityMap : ClassMap<DocumentEntity>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DocumentEntityMap"/> class.
+        /// </summary>
+        public DocumentEntityMap()
+        {
+            this.Table("DOCUMENTS");
 
-			this.Id(x => x.Id).Column("DOCUMENT_GUID");
+            this.Id(x => x.Id).Column("DOCUMENT_GUID");
 
-		    this.Map(x => x.DocumentNumber).Column("DOCUMENT_NUMBER").Not.Insert();
+            this.Map(x => x.DocumentNumber).Column("DOCUMENT_NUMBER").Not.Insert();
             this.Map(x => x.FileName).Column("FILENAME");
-			this.Map(x => x.FileType).Column("FILE_TYPE");
-			this.Map(x => x.CreatedDate).Column("CREATED_DATE");
-		    this.Map(x => x.ModifiedDate).Column("MODIFIED_DATE");
-			this.Map(x => x.TextNasPath).Column("TEXT_NAS_PATH");
-			this.Map(x => x.FileSize).Column("FILE_SIZE");
-			this.Map(x => x.FamilyId).Column("FAMILY_ID");
-			this.Map(x => x.UploadId).Column("UPLOAD_ID");
+            this.Map(x => x.FileType).Column("FILE_TYPE");
+            this.Map(x => x.CreatedDate).Column("CREATED_DATE");
+            this.Map(x => x.ModifiedDate).Column("MODIFIED_DATE");
+            this.Map(x => x.TextNasPath).Column("TEXT_NAS_PATH");
+            this.Map(x => x.FileSize).Column("FILE_SIZE");
+            this.Map(x => x.FamilyId).Column("FAMILY_ID");
+            this.Map(x => x.UploadId).Column("UPLOAD_ID");
             this.Map(x => x.DocumentText).Column("DOCUMENTTEXT");
 
             this.HasMany(x => x.FieldValues)
@@ -33,8 +33,10 @@ namespace DocumentsKeeperDemo.Repositories.NHibernateMaps
                 .KeyColumn("DOCUMENT_GUID")
                 .Not.LazyLoad();
 
-          //  References(x => x.Folder)
-		        //.Column("FOLDER_GUID");
+            References(x => x.Folder)
+                .Column("FOLDER_GUID")
+                .ForeignKey()
+                .Not.LazyLoad();
         }
-	}
+    }
 }

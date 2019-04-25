@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DocumentsKeeperDemo.Core.Repositories.Entities
+﻿namespace DocumentsKeeperDemo.Core.Repositories.Entities
 {
     /// <summary>
     /// The document lite entity that contains general information about the document.
@@ -21,11 +19,6 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
         /// The document file type.
         /// </summary>
         public virtual string FileType { get; set; }
-
-        /// <summary>
-        /// The created date.
-        /// </summary>
-        public virtual DateTime CreatedDate { get; set; }
 
         /// <summary>
         /// The id of the folder.
