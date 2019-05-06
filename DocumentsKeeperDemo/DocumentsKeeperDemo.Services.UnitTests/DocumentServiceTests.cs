@@ -16,6 +16,7 @@ namespace DocumentsKeeperDemo.Services.UnitTests
     public class DocumentServiceTests
     {
         private Mock<IDocumentRepository> documentRepositoryMock;
+        private IMock<IElasticRepository> elasticRepositoryMock;
         private DocumentService documentService;
 
         /// <summary>
@@ -25,7 +26,10 @@ namespace DocumentsKeeperDemo.Services.UnitTests
         public void Initialize()
         {
             this.documentRepositoryMock = new Mock<IDocumentRepository>();
-            this.documentService = new DocumentService(this.documentRepositoryMock.Object);
+            this.elasticRepositoryMock = new Mock<IElasticRepository>();
+            this.documentService = new DocumentService(
+                this.documentRepositoryMock.Object,
+                this.elasticRepositoryMock.Object);
         }
 
         [TestMethod]

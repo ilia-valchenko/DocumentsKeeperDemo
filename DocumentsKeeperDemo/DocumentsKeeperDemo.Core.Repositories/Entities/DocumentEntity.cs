@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using Nest;
 
 namespace DocumentsKeeperDemo.Core.Repositories.Entities
 {
     /// <summary>
     /// The document entity.
     /// </summary>
+    [ElasticsearchType(IdProperty = "Id", Name = "document")]
     public class DocumentEntity : BaseDatabaseEntity
     {
         /// <summary>
@@ -12,7 +14,6 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
         /// </summary>
         public DocumentEntity()
         {
-            //this.FieldValues = new List<FieldValueEntity>();
             this.FieldValues = new List<FieldValueLiteEntity>();
         }
 
@@ -24,27 +25,19 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
         /// <summary>
         /// The name of the file.
         /// </summary>
+        [String(Name = "FileName")]
         public virtual string FileName { get; set; }
 
         /// <summary>
         /// The document file type.
         /// </summary>
+        [String(Name = "FileType")]
         public virtual string FileType { get; set; }
-
-        ///// <summary>
-        ///// The folder entity.
-        ///// </summary>
-        //public virtual FolderEntity Folder { get; set; 
 
         /// <summary>
         /// The folder entity.
         /// </summary>
         public virtual FolderLiteEntity Folder { get; set; }
-
-        /////// <summary>
-        /////// The collection of the field value entities.
-        /////// </summary>
-        ////public virtual IList<FieldValueEntity> FieldValues { get; set; }
 
         /// <summary>
         /// The collection of the field value entities.
@@ -74,6 +67,7 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
         /// <summary>
         /// The content of the document.
         /// </summary>
+        [String(Name = "DocumentText")]
         public virtual string DocumentText { get; set; }
     }
 }

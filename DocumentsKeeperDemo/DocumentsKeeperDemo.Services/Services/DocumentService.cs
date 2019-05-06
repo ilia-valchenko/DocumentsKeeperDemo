@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using AutoMapper;
 using DocumentsKeeperDemo.Core.Enums;
 using DocumentsKeeperDemo.Core.Extensions;
@@ -11,7 +10,6 @@ using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using NHibernate.Util;
-using System.Threading.Tasks;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
@@ -20,7 +18,9 @@ namespace DocumentsKeeperDemo.Services.Services
     /// </summary>
     public sealed class DocumentService : IDocumentService
     {
+        // TODO: Move it to web.config file.
         private const string DefaultFileName = "Unknown";
+        private const string indexName = "documentskeeperindex";
 
         /// <summary>
         /// The document repository.
@@ -28,12 +28,21 @@ namespace DocumentsKeeperDemo.Services.Services
         private readonly IDocumentRepository documentRepository;
 
         /// <summary>
+        /// The ElasticSearch repository that manages ES index.
+        /// </summary>
+        private readonly IElasticRepository elasticRepository;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="DocumentService"/> class.
         /// </summary>
         /// <param name="documentRepository">The document repository.</param>
-        public DocumentService(IDocumentRepository documentRepository)
+        /// <param name="elasticRepository">The ElasticSearch repository.</param>
+        public DocumentService(
+            IDocumentRepository documentRepository,
+            IElasticRepository elasticRepository)
         {
             this.documentRepository = documentRepository;
+            this.elasticRepository = elasticRepository;
         }
 
         /// <summary>
@@ -163,6 +172,16 @@ namespace DocumentsKeeperDemo.Services.Services
 
             var documentEntities = Mapper.Map<IEnumerable<DocumentEntity>>(documents);
             this.documentRepository.InsertDocuments(documentEntities);
+
+            // test
+            if (documentEntities.Any())
+            {
+                foreach(var document in documentEntities)
+                {
+                    this.elasticRepository.Create(document, indexName);
+                }
+            }
+            // end of test
 
             return documents;
         }
