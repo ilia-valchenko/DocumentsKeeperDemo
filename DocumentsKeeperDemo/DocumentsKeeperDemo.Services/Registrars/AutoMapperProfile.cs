@@ -20,11 +20,13 @@ namespace DocumentsKeeperDemo.Services.Registrars
             // Document
             this.CreateMap<DocumentEntity, DocumentModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))
-                .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.FromTextAttributeStringToEnumValue<FileType>()));
+                .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.FromTextAttributeStringToEnumValue<FileType>()))
+                .ForMember(dest => dest.FolderId, opt => opt.MapFrom(x => Guid.Parse(x.FolderId)));
 
-		    this.CreateMap<DocumentModel, DocumentEntity>()
+            this.CreateMap<DocumentModel, DocumentEntity>()
 		        .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id.ToNonDashedString()))
-		        .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.ToStringValue()));
+		        .ForMember(dest => dest.FileType, opt => opt.MapFrom(x => x.FileType.ToStringValue()))
+                .ForMember(dest => dest.FolderId, opt => opt.MapFrom(x => x.FolderId.ToNonDashedString()));
 
             this.CreateMap<DocumentLiteEntity, DocumentModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(x => Guid.Parse(x.Id)))

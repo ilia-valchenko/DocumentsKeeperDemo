@@ -35,6 +35,12 @@ namespace DocumentsKeeperDemo.Core.Repositories.Entities
         public virtual string FileType { get; set; }
 
         /// <summary>
+        /// The identifier of the folder the document belongs to.
+        /// </summary>
+        [String(Name = "FolderId")]
+        public virtual string FolderId { get; set; }
+
+        /// <summary>
         /// The folder entity.
         /// </summary>
         public virtual FolderLiteEntity Folder { get; set; }
