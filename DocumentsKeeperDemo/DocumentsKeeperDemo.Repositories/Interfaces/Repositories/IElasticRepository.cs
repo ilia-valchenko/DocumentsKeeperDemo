@@ -15,9 +15,6 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <param name="indexName">The name of the index.</param>
         void Create(DocumentEntity document, string indexName);
 
-        // void Update(TaskEntity task, string indexName);
-        // void Delete(int id, string indexName);
-
         /// <summary>
         /// Gets the document by document id.
         /// </summary>
@@ -31,6 +28,25 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// <param name="indexName">The name of the index.</param>
         IEnumerable<DocumentEntity> GetAll(string indexName);
 
-        // IEnumerable<TaskEntity> GetQueryResults(string query, string indexName);
+        /// <summary>
+        /// Gets a collection of the documents that meet required query.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="indexName">The name of the index.</param>
+        IEnumerable<DocumentEntity> GetQueryResults(string query, string indexName);
+
+        /// <summary>
+        /// Update the document in ElasticSearch index.
+        /// </summary>
+        /// <param name="document">The document.</param>
+        /// <param name="indexName">The name of the index.</param>
+        void Update(DocumentEntity document, string indexName);
+
+        /// <summary>
+        /// Deletes document from ElasticSearch index by using its identifier.
+        /// </summary>
+        /// <param name="id">The identifier of the document.</param>
+        /// <param name="indexName">The name of the index.</param>
+        void Delete(int id, string indexName);
     }
 }

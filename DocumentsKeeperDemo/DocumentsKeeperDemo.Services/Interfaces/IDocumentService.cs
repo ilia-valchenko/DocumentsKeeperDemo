@@ -58,5 +58,14 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// Removes document.
         /// </summary>
         void DeleteDocument(Guid documentId);
+
+        /// <summary>
+        /// Gets a collection of documents that meet query requirements.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>
+        /// The collection of documents that meet query requirements.
+        /// </returns>
+        IEnumerable<DocumentModel> GetDocumentsBySearchQuery(string query);
     }
 }

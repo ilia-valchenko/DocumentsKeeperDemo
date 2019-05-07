@@ -6,6 +6,7 @@ using System.Web.Http;
 using AutoMapper;
 using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Web.Api.V1.ViewModels;
+using DocumentsKeeperDemo.Services.Models;
 
 namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
 {
@@ -94,6 +95,16 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         {
             this.documentService.DeleteDocument(id);
             return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+
+        /// <summary>
+        /// Gets a collection of documents that meet query requirements.
+        /// </summary>
+        /// <param name="query">The query</param>
+        public IEnumerable<DocumentModel> GetDocumentsBySearchQuery(string query)
+        {
+            var documents = this.documentService.GetDocumentsBySearchQuery(query);
+            return documents;
         }
     }
 }

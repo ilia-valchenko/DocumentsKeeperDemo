@@ -173,7 +173,6 @@ namespace DocumentsKeeperDemo.Services.Services
             var documentEntities = Mapper.Map<IEnumerable<DocumentEntity>>(documents);
             this.documentRepository.InsertDocuments(documentEntities);
 
-            // test
             if (documentEntities.Any())
             {
                 foreach(var document in documentEntities)
@@ -181,9 +180,28 @@ namespace DocumentsKeeperDemo.Services.Services
                     this.elasticRepository.Create(document, indexName);
                 }
             }
-            // end of test
 
             return documents;
+        }
+
+        /// <summary>
+        /// Gets a collection of documents that meet query requirements.
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <returns>
+        /// The collection of documents that meet query requirements.
+        /// </returns>
+        public IEnumerable<DocumentModel> GetDocumentsBySearchQuery(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return Enumerable.Empty<DocumentModel>();
+            }
+
+            var documentEntities = this.elasticRepository.GetQueryResults(query, indexName);
+            var documentModels = Mapper.Map<IEnumerable<DocumentModel>>(documentEntities);
+
+            return documentModels;
         }
 
         private string RemoveSpecialCharactersFromFileName(string fileName)
