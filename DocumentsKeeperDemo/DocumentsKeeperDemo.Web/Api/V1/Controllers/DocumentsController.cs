@@ -74,6 +74,11 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
             return documentLiteViewModel;
         }
 
+        /// <summary>
+        /// Gets the collection of lite documents that are contained
+        /// in the folder.
+        /// </summary>
+        /// <param name="folderId">The identifier of the folder.</param>
         [HttpGet]
         public IEnumerable<DocumentViewModel> GetLiteDocumentsByFolderId(Guid folderId)
         {
@@ -101,6 +106,7 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         /// Gets a collection of documents that meet query requirements.
         /// </summary>
         /// <param name="query">The query</param>
+        [HttpGet]
         public IEnumerable<DocumentModel> GetDocumentsBySearchQuery(string query)
         {
             var documents = this.documentService.GetDocumentsBySearchQuery(query);
