@@ -1,6 +1,7 @@
 ﻿using System;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using Nest;
+using System.Configuration;
 
 namespace DocumentsKeeperDemo.Repositories.Infrastructure.ElasticSearch
 {
@@ -9,10 +10,6 @@ namespace DocumentsKeeperDemo.Repositories.Infrastructure.ElasticSearch
     /// </summary>
     public class ElasticClientFactory : IElasticClientFactory
     {
-        // TODO: Move them to web.config file.
-        private const string indexName = "documentskeeperindex";
-        private const string elasticSearchUri = "http://localhost:9200";
-
         /// <summary>
         /// Creates configured ElasticSearch client.
         /// </summary>
@@ -21,6 +18,9 @@ namespace DocumentsKeeperDemo.Repositories.Infrastructure.ElasticSearch
         /// </returns>
         public IElasticClient CreateElasticClient()
         {
+            string indexName = ConfigurationManager.AppSettings["elasticSearchIndexName"];
+            string elasticSearchUri = ConfigurationManager.AppSettings["elasticSearchUri"];
+
             ElasticClient client = new ElasticClient(
                 new ConnectionSettings(new Uri(elasticSearchUri)));
 

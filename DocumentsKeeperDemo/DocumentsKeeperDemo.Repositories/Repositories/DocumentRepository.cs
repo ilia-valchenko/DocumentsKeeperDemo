@@ -113,16 +113,24 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
         /// Gets the collection of instances of the <see cref="DocumentEntity"/> class.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
+        /// <param name="startFrom">The number of the first element
+        /// that have to be fetched.</param>
+        /// <param name="limit">The limit value.</param>
         /// <returns>
         /// The collection of instances of the <see cref="DocumentEntity"/> class.
         /// </returns>
         public IEnumerable<DocumentEntity> GetDocumentEntities(
-            Expression<Func<DocumentEntity, bool>> predicate)
+            Expression<Func<DocumentEntity, bool>> predicate,
+            int startFrom,
+            int limit)
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var documentEntities = session.Query<DocumentEntity>()
-                    .Where(predicate).ToList();
+                var documentEntities = session.QueryOver<DocumentEntity>()
+                    .Where(predicate)
+                    .Skip(startFrom)
+                    .Take(limit)
+                    .List();
 
                 foreach (var entity in documentEntities)
                 {
@@ -134,7 +142,13 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
             }
         }
 
-        public IEnumerable<DocumentEntity> InsertDocuments(IEnumerable<DocumentEntity> documents)
+        /// <summary>
+        /// Inserts documents.
+        /// </summary>
+        /// <param name="documents">The collection of documents that
+        /// have to be inserted.</param>
+        public IEnumerable<DocumentEntity> InsertDocuments(
+            IEnumerable<DocumentEntity> documents)
         {
             using (var session = this.sessionFactory.OpenSession())
             {
@@ -152,14 +166,25 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
             return documents;
         }
 
+        /// <summary>
+        /// Gets the collection of the document lite entities by using the predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="startFrom">The number of the first element
+        /// that have to be fetched.</param>
+        /// <param name="limit">The limit value.</param>
         public IEnumerable<DocumentLiteEntity> GetDocumentLiteEntities(
-            Expression<Func<DocumentLiteEntity, bool>> predicate)
+            Expression<Func<DocumentLiteEntity, bool>> predicate,
+            int startFrom,
+            int limit)
         {
             using (var session = this.sessionFactory.OpenSession())
             {
-                var documentLiteEntities = session.Query<DocumentLiteEntity>()
+                var documentLiteEntities = session.QueryOver<DocumentLiteEntity>()
                     .Where(predicate)
-                    .ToList();
+                    .Skip(startFrom)
+                    .Take(limit)
+                    .List();
 
                 return documentLiteEntities;
             }
@@ -177,6 +202,24 @@ namespace DocumentsKeeperDemo.Repositories.Repositories
                     session.DeleteById<DocumentEntity>(documentId);
                     transaction.Commit();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of the documents that are contained
+        /// in the provided folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        /// <returns>Returns the number of the document.</returns>
+        public int GetDocumentsCount(string folderId)
+        {
+            using (var session = this.sessionFactory.OpenSession())
+            {
+                var count = session.Query<DocumentLiteEntity>()
+                    .Where(d => d.FolderId == folderId)
+                    .Count();
+
+                return count;
             }
         }
     }

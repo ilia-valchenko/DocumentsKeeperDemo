@@ -75,15 +75,31 @@ namespace DocumentsKeeperDemo.Web.Api.V1.Controllers
         }
 
         /// <summary>
+        /// Gets the number of the documents that are contained
+        /// in the provided folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        /// <returns>Returns the number of the document.</returns>
+        [HttpGet]
+        public int GetDocumentsCount(Guid folderId)
+        {
+            int count = this.documentService.GetDocumentsCount(folderId);
+            return count;
+        }
+
+        /// <summary>
         /// Gets the collection of lite documents that are contained
         /// in the folder.
         /// </summary>
         /// <param name="folderId">The identifier of the folder.</param>
+        /// <param name="pageNumber">The number of the page.</param>
         [HttpGet]
-        public IEnumerable<DocumentViewModel> GetLiteDocumentsByFolderId(Guid folderId)
+        public IEnumerable<DocumentViewModel> GetLiteDocumentsByFolderId(
+            Guid folderId,
+            int pageNumber)
         {
             var liteDocumentModels = this.documentService
-                .GetLiteDocumentsByFolderId(folderId);
+                .GetLiteDocumentsByFolderId(folderId, pageNumber);
 
             var liteDocumentsViewModels = Mapper
                 .Map<IEnumerable<DocumentViewModel>>(liteDocumentModels);

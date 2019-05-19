@@ -47,29 +47,48 @@ namespace DocumentsKeeperDemo.Repositories.Interfaces.Repositories
         /// Gets the collection of instances of the <see cref="DocumentEntity"/> class.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
+        /// <param name="startFrom">The number of the first element
+        /// that have to be fetched.</param>
+        /// <param name="limit">The limit value.</param>
         /// <returns>
         /// The collection of instances of the <see cref="DocumentEntity"/> class.
         /// </returns>
         IEnumerable<DocumentEntity> GetDocumentEntities(
-            Expression<Func<DocumentEntity, bool>> predicate);
+            Expression<Func<DocumentEntity, bool>> predicate,
+            int startFrom,
+            int limit);
 
         /// <summary>
         /// Inserts documents.
         /// </summary>
-        /// <param name="documents">The collection of documents that have to be inserted.</param>
+        /// <param name="documents">The collection of documents that
+        /// have to be inserted.</param>
         IEnumerable<DocumentEntity> InsertDocuments(IEnumerable<DocumentEntity> documents);
- 
+
         /// <summary>
         /// Gets the collection of the document lite entities by using the predicate.
         /// </summary>
         /// <param name="predicate">The predicate.</param>
+        /// <param name="startFrom">The number of the first element
+        /// that have to be fetched.</param>
+        /// <param name="limit">The limit value.</param>
         IEnumerable<DocumentLiteEntity> GetDocumentLiteEntities(
-            Expression<Func<DocumentLiteEntity, bool>> predicate);
+            Expression<Func<DocumentLiteEntity, bool>> predicate,
+            int startFrom,
+            int limit);
 
         /// <summary>
         /// Removes document by document id.
         /// </summary>
         /// <param name="documentId">The id of the document that have to be removed.</param>
         void DeleteDocument(string documentId);
+
+        /// <summary>
+        /// Gets the number of the documents that are contained
+        /// in the provided folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        /// <returns>Returns the number of the document.</returns>
+        int GetDocumentsCount(string folderId);
     }
 }

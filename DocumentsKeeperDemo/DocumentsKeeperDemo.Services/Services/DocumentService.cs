@@ -10,6 +10,7 @@ using DocumentsKeeperDemo.Services.Interfaces;
 using DocumentsKeeperDemo.Services.Models;
 using DocumentsKeeperDemo.Core.Repositories.Entities;
 using NHibernate.Util;
+using System.Configuration;
 
 namespace DocumentsKeeperDemo.Services.Services
 {
@@ -18,10 +19,6 @@ namespace DocumentsKeeperDemo.Services.Services
     /// </summary>
     public sealed class DocumentService : IDocumentService
     {
-        // TODO: Move it to web.config file.
-        private const string DefaultFileName = "Unknown";
-        private const string indexName = "documentskeeperindex";
-
         /// <summary>
         /// The document repository.
         /// </summary>
@@ -109,15 +106,22 @@ namespace DocumentsKeeperDemo.Services.Services
         /// Gets all lite documents that are contained in the specified folder.
         /// </summary>
         /// <param name="folderId">The id of the folder.</param>
-        public IEnumerable<DocumentModel> GetLiteDocumentsByFolderId(Guid folderId)
+        /// <param name="pageNumber">The number of the page.</param>
+        public IEnumerable<DocumentModel> GetLiteDocumentsByFolderId(Guid folderId, int pageNumber)
         {
             if (folderId == Guid.Empty)
             {
                 return null;
             }
 
+            int pageSize = Int32.Parse(ConfigurationManager.AppSettings["pageSize"]);
+            int startFrom = (pageNumber - 1) * pageSize;
+
             var liteDocumentEntities = this.documentRepository
-                .GetDocumentLiteEntities(d => d.FolderId == folderId.ToNonDashedString());
+                .GetDocumentLiteEntities(
+                    d => d.FolderId == folderId.ToNonDashedString(),
+                    startFrom,
+                    pageSize);
 
             var liteDocumentModels = Mapper.Map<IEnumerable<DocumentModel>>(liteDocumentEntities);
 
@@ -177,7 +181,9 @@ namespace DocumentsKeeperDemo.Services.Services
             {
                 foreach(var document in documentEntities)
                 {
-                    this.elasticRepository.Create(document, indexName);
+                    this.elasticRepository.Create(
+                        document,
+                        ConfigurationManager.AppSettings["elasticSearchIndexName"]);
                 }
             }
 
@@ -198,17 +204,32 @@ namespace DocumentsKeeperDemo.Services.Services
                 return Enumerable.Empty<DocumentModel>();
             }
 
-            var documentEntities = this.elasticRepository.GetQueryResults(query, indexName);
+            var documentEntities = this.elasticRepository.GetQueryResults(
+                query,
+                ConfigurationManager.AppSettings["elasticSearchIndexName"]);
+
             var documentModels = Mapper.Map<IEnumerable<DocumentModel>>(documentEntities);
 
             return documentModels;
+        }
+
+        /// <summary>
+        /// Gets the number of the documents that are contained
+        /// in the provided folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        /// <returns>Returns the number of the document.</returns>
+        public int GetDocumentsCount(Guid folderId)
+        {
+            return this.documentRepository
+                .GetDocumentsCount(folderId.ToNonDashedString());
         }
 
         private string RemoveSpecialCharactersFromFileName(string fileName)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {
-                return DefaultFileName;
+                return ConfigurationManager.AppSettings["defaultFileName"];
             }
 
             return fileName.Replace("\"", "");

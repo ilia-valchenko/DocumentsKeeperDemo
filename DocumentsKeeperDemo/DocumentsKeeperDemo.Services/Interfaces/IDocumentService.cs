@@ -52,7 +52,8 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// Gets all lite documents for the specified folder.
         /// </summary>
         /// <param name="folderId">The id of the folder.</param>
-        IEnumerable<DocumentModel> GetLiteDocumentsByFolderId(Guid folderId);
+        /// <param name="pageNumber">The number of the page.</param>
+        IEnumerable<DocumentModel> GetLiteDocumentsByFolderId(Guid folderId, int pageNumber);
 
         /// <summary>
         /// Removes document.
@@ -67,5 +68,13 @@ namespace DocumentsKeeperDemo.Services.Interfaces
         /// The collection of documents that meet query requirements.
         /// </returns>
         IEnumerable<DocumentModel> GetDocumentsBySearchQuery(string query);
+
+        /// <summary>
+        /// Gets the number of the documents that are contained
+        /// in the provided folder.
+        /// </summary>
+        /// <param name="folderId">The id of the folder.</param>
+        /// <returns>Returns the number of the document.</returns>
+        int GetDocumentsCount(Guid folderId);
     }
 }
